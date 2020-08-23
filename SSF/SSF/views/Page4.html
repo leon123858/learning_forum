@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>選擇你想要的科系</h1>
+    </div>
+    <div class="container">
+        <div class="row card-group ">
+            <div class="card col-2" style="width:200px; border:none" onclick="department('PS')">
+                <img class="card-img-top" src="ttt.jpg" style="width:100%">
+                <div class="text-center">
+                    <label>政治系</label>
+                </div>
+            </div>
+            <div class="card col-2" style="width:200px; border:none" onclick="department('ECON')">
+                <img class="card-img-top" src="ttt.jpg" style="width:100%">
+                <div class="text-center">
+                    <label>經濟系</label>
+                </div>
+            </div>
+            <div class="card col-2" style="width:200px; border:none" onclick="department('PSY')">
+                <img class="card-img-top" src="ttt.jpg" style="width:100%">
+                <div class="text-center">
+                    <label>心理系</label>
+                </div>
+            </div>
+            <div class="card col-2" style="width:200px; border:none" onclick="department('LAW')">
+                <img class="card-img-top" src="ttt.jpg" style="width:100%">
+                <div class="text-center">
+                    <label>法律系</label>
+                </div>
+            </div>
+            <div class="card col-4" style="width:250px; border:none" onclick="department('YT')">
+                <img class="card-img-top" src="ttt.jpg" style="width:100%">
+                <div class="text-center">
+                    <label>老師</label>
+                </div>
+            </div>
+        </div>
+        <form style="display: none;">
+            <input type='text'>
+            <input submit>
+        </form>
+        <div class="row">
+            <span>
+                <%for(var i=0;i<data.length;i++){%>
+                    <div>
+                        <pre id='<%=i%>'>
+                            <%=data[i]%>;
+                        </pre>
+                    </div>
+                    <%}%>
+            </span>
+        </div>
+    </div>
+    <script>
+        function department(value) {
+            $('input').first().val(value);
+            $('form').submit();
+
+            console.log($('input').first().val());
+        }
+    </script>
+</body>
+
+</html>
