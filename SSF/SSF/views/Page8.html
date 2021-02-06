@@ -143,10 +143,16 @@
     <script>
         var yourpassword = "<%=password%>";
         function init() {
-            $.get("../JB/get_board_introduce?board_ID=" + $('h1 > small').text(), function (result) {
-                $("#introduce").html(result['introduce']);
-                $('.text-center > h1').html(result['title'] + $('h1').html());
-                $("#get_type").val(result['type']);
+            $.get("../JB/get_board_introduce?board_ID=" + '<%=board_ID%>', function (result) {
+                //console.log(result);
+                if (result['introduce'] != undefined) {
+                    $("#introduce").html(result['introduce']);
+                    $('.text-center > h1').html(result['title'] + $('h1').html());
+                    $("#get_type").val(result['type']);
+                }
+                else {
+                    alert('看板資訊加載失敗');
+                }
             });
             $('input').hide();
             $('.form-control').show();

@@ -18,6 +18,7 @@
             width: 98%;
         }
     }
+
     @media (min-width: 600px) {
         #upper-board {
             width: 35%;
@@ -29,15 +30,16 @@
         <h1 class=" d-inline-block">版面管理</h1>ID: <%=board_ID %>
     </div>
 </header>
+
 <body>
     <div class=" container-fluid ">
-        <div id="upper-board" class=" text-center  m-auto" >
-           <!-- 更改資訊欄 -->
-           <small  style="display: none; color: red;">更改老師介紹和議題介紹請先至編輯器做轉換</small>
+        <div id="upper-board" class=" text-center  m-auto">
+            <!-- 更改資訊欄 -->
+            <small style="display: none; color: red;">更改老師介紹和議題介紹請先至編輯器做轉換</small>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         類別
                     </button>
                     <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -47,7 +49,7 @@
                         <a class="dropdown-item" id='introduce'>議題介紹</a>
                     </span>
                 </div>
-               
+
                 <input id="include-input" type="text" class="form-control" placeholder="更改版面資訊" />
                 <div class="input-group-append">
                     <a class="btn btn-outline-dark" style="display: none;" href="/BM/writer">編輯器</a>
@@ -55,17 +57,17 @@
                 <div class="input-group-append">
                     <button id="confirm-btn" class="btn btn-outline-success">更改</button>
                 </div>
-                
+
             </div>
-             <!-- 貼文篩選 -->
-             <div class="input-group mb-3">
+            <!-- 貼文篩選 -->
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">貼文查看</span>
                 </div>
                 <input id="filter-input" type="number" class="form-control" min="0" placeholder="查看此號後的貼文"
                     oninput="$(this).val($(this).val().replace(/[^\d]/g,''))">
                 <div class="input-group-append">
-                    <button id="filter-btn" class=" btn btn-outline-success" >查看</button>
+                    <button id="filter-btn" class=" btn btn-outline-success">查看</button>
                     <button class=" btn btn-outline-danger" onclick="$('.list-group>div').show()">解除</button>
                 </div>
             </div>
@@ -80,60 +82,64 @@
                     <button class=" btn btn-outline-success" onclick="change_Label(false)">顯示</button>
                     <button class=" btn btn-outline-danger" onclick="change_Label(true)">隱藏</button>
                 </div>
-            </div>   
+            </div>
         </div>
         <div>
             <!-- 顯示看板資訊 -->
             <div>
                 <button class="w-100 list-group-item list-group-item-action list-group-item-primary text-center"
-                    data-toggle="collapse" data-target="#inform-data"> <strong>版面資訊陳列 </strong><i class="fa fa-chevron-circle-down" 
-                        aria-hidden="true"></i></button>
+                    data-toggle="collapse" data-target="#inform-data"> <strong>版面資訊陳列 </strong><i
+                        class="fa fa-chevron-circle-down" aria-hidden="true"></i></button>
                 <div id="inform-data" class="row m-auto collapse w-100" style="background-color: rgb(231, 242, 255);">
                     <div class="col-md-4 mb-1"><strong>看板號:</strong> <label name="board"></label></div>
-                    <div class="col-md-4 mb-1" >  <strong>看板類型:</strong>   <label name="type"></label></div>
-                    <div class="col-md-4 mb-1"><strong>看板標題:</strong>   <label name="title"></label></div>             
-                    <div class="col-md-4 mb-1"><strong>看板擁有者:</strong>   <label name="name"></label></div>
-                    <div class="col-md-4 mb-1"><strong>隸屬學校:</strong>   <label name="school"></label></div>
-                    <div class="col-md-4 mb-1"><strong>班級:</strong>    <label name="class"></label></div>
-                    <div class="col-md-4 mb-1"> <strong>私有密碼:</strong>   <label name="password-private"></label></div>
-                    <div class="col-md-4 mb-1"> <strong>公有密碼:</strong>  <label name="password-public"></label></div>
-                    <div class="col-md-4 mb-1"><strong>分類:</strong>   <label name="tab"></label></div>
-                    <div class="col-md-4 mb-1"> <strong>議題介紹:</strong>   <label name="intorduce"></label></div>
-                    <div class="col-md-4 mb-1"><strong>議題主持人介紹:</strong>   <label name="include"></label></div>
+                    <div class="col-md-4 mb-1"> <strong>看板類型:</strong> <label name="type"></label></div>
+                    <div class="col-md-4 mb-1"><strong>看板標題:</strong> <label name="title"></label></div>
+                    <div class="col-md-4 mb-1"><strong>看板擁有者:</strong> <label name="name"></label></div>
+                    <div class="col-md-4 mb-1"><strong>隸屬學校:</strong> <label name="school"></label></div>
+                    <div class="col-md-4 mb-1"><strong>班級:</strong> <label name="class"></label></div>
+                    <div class="col-md-4 mb-1"> <strong>私有密碼:</strong> <label name="password-private"></label></div>
+                    <div class="col-md-4 mb-1"> <strong>公有密碼:</strong> <label name="password-public"></label></div>
+                    <div class="col-md-4 mb-1"><strong>分類:</strong> <label name="tab"></label></div>
+                    <div class="col-md-4 mb-1"> <strong>議題介紹:</strong> <label name="intorduce"></label></div>
+                    <div class="col-md-4 mb-1"><strong>議題主持人介紹:</strong> <label name="include"></label></div>
                 </div>
             </div>
             <!-- 貼文顯示 -->
             <ul class="list-group list-group-flush ">
                 <% for(var i in data.reverse()){%>
-                <div id="div-<%=data[i]['num']%>">
-                <% if(data[i]['hide']==='true'){%>
-                <li id="list-<%=data[i]['num']%>" class="list-group-item list-group-item-light  pb-0  d-flex">
-                <%}else{%>
-                <li id="list-<%=data[i]['num']%>" class="list-group-item list-group-item-success pb-0  d-flex" >
-                <%}%>
-                <div  style="word-break: break-all; width: 80%; ">
-                    <%if(data[i]['hide']=='true'){ %>
-                        <h5 class=" d-inline-block" style="text-decoration:line-through;">
-                        <%}else{%>
-                        <h5 class=" d-inline-block" >
-                        <%}%>
-                        貼文編號:<%=data[i]['num']%>
-                        標題:<%=data[i]['title']%>
-                        發文者:<%=data[i]['ID']%>
-                        </h5> 
-                        <br>
-                    <label class=" pl-3" ><%-data[i]['include']%></label> 
-                </div>
-               <div class=" ml-auto  align-self-center">
-                <%if(data[i]['hide']=='true'){%>
-                    <h3> <span class="badge badge-dark " tag="hide" >隱藏</span></h3>
-                    <%}else{%>
-                    <h3><span class="badge badge-success " tag="show">顯示</span></h3>
+                    <div id="div-<%=data[i]['num']%>">
+                        <% if(data[i]['hide']==='true' ){%>
+                            <li id="list-<%=data[i]['num']%>"
+                                class="list-group-item list-group-item-light  pb-0  d-flex">
+                                <%}else{%>
+                            <li id="list-<%=data[i]['num']%>"
+                                class="list-group-item list-group-item-success pb-0  d-flex">
+                                <%}%>
+                                    <div style="word-break: break-all; width: 80%; ">
+                                        <%if(data[i]['hide']=='true'){ %>
+                                            <h5 class=" d-inline-block" style="text-decoration:line-through;">
+                                                <%}else{%>
+                                                    <h5 class=" d-inline-block">
+                                                        <%}%>
+                                                            貼文編號:<%=data[i]['num']%>
+                                                                標題:<%=data[i]['title']%>
+                                                                    發文者:<%=data[i]['ID']%>
+                                                    </h5>
+                                                    <br>
+                                                    <label class=" pl-3">
+                                                        <%-data[i]['include']%>
+                                                    </label>
+                                    </div>
+                                    <div class=" ml-auto  align-self-center">
+                                        <%if(data[i]['hide']=='true'){%>
+                                            <h3> <span class="badge badge-dark " tag="hide">隱藏</span></h3>
+                                            <%}else{%>
+                                                <h3><span class="badge badge-success " tag="show">顯示</span></h3>
+                                                <%}%>
+                                    </div>
+                            </li>
+                    </div>
                     <%}%>
-               </div> 
-                </li>
-            </div>
-                <%}%>
             </ul>
         </div>
     </div>
@@ -155,14 +161,14 @@
                 $("label[name='board']:first").text(data['board_ID']);
                 $("label[name='type']:first").text(data['type']);
                 $("label[name='title']:first").text(data['title']);
-                $("label[name='intorduce']:first").text(data['introduce']);
+                $("label[name='intorduce']:first").text(data['introduce'].replace(/<[^>]+>/g, ""));
                 $("label[name='name']:first").text(data['name']);
                 $("label[name='school']:first").text(data['school']);
                 $("label[name='class']:first").text(data['class']);
                 $("label[name='password-private']:first").text(data['password_private']);
                 $("label[name='password-public']:first").text(data['password_public']);
                 $("label[name='tab']:first").text(data['tab']);
-                $("label[name='include']:first").text(data['include']);
+                $("label[name='include']:first").text(data['include'].replace(/<[^>]+>/g, ""));
             },
             error: function () {
                 // alert("版面資訊未找到");
@@ -172,13 +178,13 @@
         $('.dropdown-menu a').click(function () {
             kind = $(this).attr('id');
             $(".dropdown-toggle").text($(this).text());
-            if(kind=="include" || kind=="introduce"){
-                $('.input-group-append').children('a[href="/BM/writer"]').show();  
-                $("#upper-board").find('small').show();   
+            if (kind == "include" || kind == "introduce") {
+                $('.input-group-append').children('a[href="/BM/writer"]').show();
+                $("#upper-board").find('small').show();
             }
-            else{
-                $('.input-group-append').children('a[href="/BM/writer"]').hide();   
-                $("#upper-board").find('small').hide();   
+            else {
+                $('.input-group-append').children('a[href="/BM/writer"]').hide();
+                $("#upper-board").find('small').hide();
             }
         });
 
@@ -211,9 +217,9 @@
             // location.href='#list-' + $('#filter-input').val();
         });
     });
-    function change_Label(hide,number=0) {
-        if(!number){
-            number= $('#label-input').val()
+    function change_Label(hide, number = 0) {
+        if (!number) {
+            number = $('#label-input').val()
         }
 
         console.log('#list-' + number);
@@ -228,17 +234,17 @@
         });
         if (!hide) {
             $('#list-' + number).removeClass('list-group-item-light');
-            $('#list-' + number).find('h5').css('text-decoration','');
+            $('#list-' + number).find('h5').css('text-decoration', '');
             $('#list-' + number).find('span').text('顯示');
             $('#list-' + number).find('span').removeClass('badge-dark').addClass('badge-success');
         }
-        else {        
+        else {
             $('#list-' + number).addClass('list-group-item-light');
-            $('#list-' + number).find('h5').css('text-decoration','line-through');
+            $('#list-' + number).find('h5').css('text-decoration', 'line-through');
             $('#list-' + number).find('span').text('隱藏');
             $('#list-' + number).find('span').removeClass('badge-success').addClass('badge-dark');
         }
     }
- </script>
+</script>
 
 </html>
