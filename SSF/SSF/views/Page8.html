@@ -1,32 +1,40 @@
 ﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/javascripts/jquery.js"></script>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
     <title>看板區</title>
 </head>
 <header>
     <div name="Title" class="jumbotron  mb-0 ">
         <button class="btn btn-outline-dark  float-left" onclick="history.back()">上一頁</button>
         <form method="post" action="/SAN/sign_in" id="sign_in_form">
-            <input type="text" name='ID'   style="display:none" value="<%=ID%>"/>
-            <input type="password" name='password'  style="display:none" value="<%=password%>"/>
-            <input type="submit" class=" btn btn-secondary float-left" value="回首頁"/>
+            <input type="text" name='ID' style="display:none" value="<%=ID%>" />
+            <input type="password" name='password' style="display:none" value="<%=password%>" />
+            <input type="submit" class=" btn btn-secondary float-left" value="回首頁" />
         </form>
         <div class="text-center  align-self-center">
-            <h1><small><%=board_ID%></small></h1>
-            <small>You are <%=ID%></small>     <button id="plusLover" type="button" class="btn btn-link">加到我的最愛</button>
+            <h1><small>
+                    <%=board_ID%>
+                </small></h1>
+            <small>You are <%=ID%></small> <button id="plusLover" type="button" class="btn btn-link">加到我的最愛</button>
         </div>
     </div>
 </header>
+
 <body>
     <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
         <!-- <div class="text-center jumbotron">
@@ -36,9 +44,12 @@
         <div id="introduce" style="text-align:center" class="bg-success"></div>
         <!-- 篩選功能-->
         <div id="find" class="bg-warning text-center">
-            找帳號或主題關鍵字: <input type="text" class="bg-warning" /><input type="button" value="篩選主題" class="bg-warning btnclr" /><br />
-            輸入顯示前幾則貼文: <input type="text" class="bg-warning" /><input type="button" value="隱藏貼文" class="bg-warning btnclr" /><br />
-            輸入目標貼文的號碼: <input type="text" id="where" class="bg-warning" /><input  id="choosePost"  type="button" value="指定貼文" class="bg-warning btnclr" /><br />
+            找帳號或主題關鍵字: <input type="text" class="bg-warning" /><input type="button" value="篩選主題"
+                class="bg-warning btnclr" /><br />
+            輸入顯示前幾則貼文: <input type="text" class="bg-warning" /><input type="button" value="隱藏貼文"
+                class="bg-warning btnclr" /><br />
+            輸入目標貼文的號碼: <input type="text" id="where" class="bg-warning" /><input id="choosePost" type="button"
+                value="指定貼文" class="bg-warning btnclr" /><br />
             <input id="unlimit" type="button" value="解除所有限制" class="btn-lg bg-warning btnclr" style="width:100%" />
         </div>
         <!-- 發文跳轉 -->
@@ -53,33 +64,48 @@
         <br>
         <div>
             <!-- 每則貼文主體 -->
-            <%for(var i = num-1;i >= 0;i--){%>
-            <div id="<%=data[i]['num']%>" name="<%=i%>" class="post bg-info">
-                <strong>帳號:</strong><span><%=data[i]['ID']%></span><br />
-                <strong>標題:</strong><span><%=data[i]['title']%></span><small style="color:grey">      貼文編號: <%=data[i]['num']%></small>  <a name="<%=data[i]['ID']%>" style="font-size:50%">編輯本篇貼文</a> <br />
-                <small style="font-size:50%" class="simple_include"><%if(data[i]['include'].length > 30){%><%=data[i]['include'].substr(0,30)%><%}else{%><%=data[i]['include'].substr(0)%><%}%>.....按展開內容看全部</small>
-                <div class="include" style="word-wrap: break-word;"><%-data[i]['include']%></div> <br />
-                <input class="btn-lg bg-warning" type="button" value="展開內容" />
-                <!-- 寄留言-->
-                <form action="/DB/discuss" method="post">
-                    <input type="text" name="num" value="<%=data[i]['num']%>" />
-                    <input type="text" name="ID" value="<%=ID%>" />
-                    <input type="text" name="board_ID" value="<%=board_ID%>" />
-                    <label class="label label-success">展開留言</label><input name="<%=data[i]['num']%>" type="button" value="我要留言" class="btn btn-link" />
-                    <input class="form-control" style="background-color:cornsilk" type="text" name="include" value="" />
-                </form>
-                <!-- 回應區-->
-                <div name="reply">
-                    <%for(var j = 1;j <= Object.keys(data[i]).length - 5; j++){%>
-                    <%=data[i][j.toString()]%><br />
-                    <%}%>
+            <%for(var i=num-1;i>= 0;i--){%>
+                <div id="<%=data[i]['num']%>" name="<%=i%>" class="post bg-info">
+                    <strong>帳號:</strong><span>
+                        <%=data[i]['ID']%>
+                    </span><br />
+                    <strong>標題:</strong><span>
+                        <%=data[i]['title']%>
+                    </span><small style="color:grey"> 貼文編號: <%=data[i]['num']%></small> <a name="<%=data[i]['ID']%>"
+                        style="font-size:50%">編輯本篇貼文</a> <br />
+                    <small style="font-size:50%" class="simple_include">
+                        <%if(data[i]['include'].replace( /<[^>]+>/g, "").length> 30){%><%=data[i]['include'].replace(
+                                /<[^>]+>/g, "").substr(0,30)%>
+                                <%}else{%>
+                                    <%=data[i]['include'].replace( /<[^>]+>/g, "").substr(0)%>
+                                        <%}%>.....按展開內容看全部
+                    </small>
+                    <div class="include" style="word-wrap: break-word;">
+                        <%-data[i]['include']%>
+                    </div> <br />
+                    <input class="btn-lg bg-warning" type="button" value="展開內容" />
+                    <!-- 寄留言-->
+                    <form action="/DB/discuss" method="post">
+                        <input type="text" name="num" value="<%=data[i]['num']%>" />
+                        <input type="text" name="ID" value="<%=ID%>" />
+                        <input type="text" name="board_ID" value="<%=board_ID%>" />
+                        <label class="label label-success">展開留言</label><input name="<%=data[i]['num']%>" type="button"
+                            value="我要留言" class="btn btn-link" />
+                        <input class="form-control" style="background-color:cornsilk" type="text" name="include"
+                            value="" />
+                    </form>
+                    <!-- 回應區-->
+                    <div name="reply">
+                        <%for(var j=1;j <=Object.keys(data[i]).length - 5; j++){%>
+                            <%=data[i][j.toString()]%><br />
+                                <%}%>
+                    </div>
+                    <br />
+                    <hr style="color:white; border:5px" />
                 </div>
-                <br />
-                <hr style="color:white; border:5px" />
-            </div>
-            <%}%>
-            <br />
-            <h1 id="NotFind" style="text-align:center">沒找到貼文</h1>
+                <%}%>
+                    <br />
+                    <h1 id="NotFind" style="text-align:center">沒找到貼文</h1>
         </div>
     </div>
     <input id="Hidden1" type="hidden" value="<%=place%>" />
@@ -87,12 +113,13 @@
     <form id="to_rewrite" style="display:none" action="/DB/to_ReWrite" method="post">
         <input type="text" name="ID" value="<%=ID%>" />
         <input type="text" name="board_password" value="<%=board_password%>" />
-        <input type="text" name="password"  value="<%=password%>"/>
+        <input type="text" name="password" value="<%=password%>" />
         <input type="text" name="board_ID" value="<%=board_ID%>" />
         <input type="text" name="num" />
     </form>
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -107,7 +134,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="yourpassword = $('#prompt').val(); if (yourpassword == '') { alert('請輸入您的密碼'); } else { alert('謝謝,請重複剛才操作') }">確認</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        onclick="yourpassword = $('#prompt').val(); if (yourpassword == '') { alert('請輸入您的密碼'); } else { alert('謝謝,請重複剛才操作') }">確認</button>
                 </div>
             </div>
         </div>
@@ -126,7 +154,7 @@
             $('input[type = "button"]').show();
             $('input[type = "checkbox"]').show();
             $('#find > input').show();
-            
+
             $('div[name = "reply"]').hide();
             $('.include').hide();
             $('.simple_include').show();
@@ -313,4 +341,5 @@
         });
     </script>
 </body>
+
 </html>
