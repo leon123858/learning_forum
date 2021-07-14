@@ -3,47 +3,64 @@ var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 
-const {
-    GetUrl
-} = require('./database_url');
-
+const { encrypt } = require('./crypto');
+const { GetUrl } = require('./database_url');
 
 //mode 0:  1:密碼錯誤或帳號不存在,按上一頁再試一次 2:伺服器連線問題請,請按上一頁再試一次 3:操作不合法,請聯絡網站管理者
 function warming(res, mode) {
-    var str = ['', '密碼錯誤或帳號(版號)不存在,按上一頁再試一次', '伺服器連線問題,請按上一頁再試一次', '操作不合法,請聯絡網站管理者'];
-    res.render('warming', { warming: str[mode] });
+	var str = [
+		'',
+		'密碼錯誤或帳號(版號)不存在,按上一頁再試一次',
+		'伺服器連線問題,請按上一頁再試一次',
+		'操作不合法,請聯絡網站管理者',
+	];
+	res.render('warming', { warming: str[mode] });
 }
 
 /******************
 ./CB
 ******************/
 router.get('/', function (req, res) {
-    MongoClient.connect(GetUrl("data"), {
-        useUnifiedTopology: true
-    }, function (err, db) {
-        if (err) { warming(res, 2); throw err; }
-        //console.log("index.js:connect DB!");
-        var found_database = db.db("data");
-        found_database.collection("page1").find({}, { projection: { _id: 0 } }).sort({ _id: 1 }).toArray(function (err, found_data) {
-            if (err) { warming(res, 2); throw err; }
-            //console.log("title>>");
-            //console.log(found_data[0]['title']);
-            //console.log("include>>");
-            //console.log(found_data[1]['include']);
-            res.render('Page1', {
-                ID: '',
-                password: '',
-                name: '',
-                mail: '',
-                school: '',
-                gender: '',
-                title: found_data[0]['title'],
-                include: found_data[1]['include'],
-                result: '第一次進入'
-            });
-            db.close();
-        });
-    });
+	MongoClient.connect(
+		GetUrl('data'),
+		{
+			useUnifiedTopology: true,
+		},
+		function (err, db) {
+			if (err) {
+				warming(res, 2);
+				throw err;
+			}
+			//console.log("index.js:connect DB!");
+			var found_database = db.db('data');
+			found_database
+				.collection('page1')
+				.find({}, { projection: { _id: 0 } })
+				.sort({ _id: 1 })
+				.toArray(function (err, found_data) {
+					if (err) {
+						warming(res, 2);
+						throw err;
+					}
+					//console.log("title>>");
+					//console.log(found_data[0]['title']);
+					//console.log("include>>");
+					//console.log(found_data[1]['include']);
+					res.render('Page1', {
+						ID: '',
+						password: '',
+						name: '',
+						mail: '',
+						school: '',
+						gender: '',
+						title: found_data[0]['title'],
+						include: found_data[1]['include'],
+						result: '第一次進入',
+					});
+					db.close();
+				});
+		}
+	);
 });
 //*/
 
@@ -51,190 +68,291 @@ router.get('/', function (req, res) {
 ./CB/direct_to_3
 ******************/
 router.get('/direct_to_3', async (req, res) => {
-    MongoClient.connect(GetUrl("data"), {
-        useUnifiedTopology: true
-    }, function (err, found_connect) {
-        if (err) { warming(res, 2); throw err; }
-        var found_database = found_connect.db("data");
-        found_database.collection("page3").find({}, { projection: { _id: 0 } }).sort({ _id: 1 }).toArray(function (err, found_data) {
-            if (err) { warming(res, 2); throw err; }
-            //console.log('getting data>>')
-            //console.log(found_data[0]['data'])
-            res.render('Page3', {
-                ID: '匿名者',
-                data: found_data[0]['data']
-            });
-            found_connect.close();
-        })
-    });
+	MongoClient.connect(
+		GetUrl('data'),
+		{
+			useUnifiedTopology: true,
+		},
+		function (err, found_connect) {
+			if (err) {
+				warming(res, 2);
+				throw err;
+			}
+			var found_database = found_connect.db('data');
+			found_database
+				.collection('page3')
+				.find({}, { projection: { _id: 0 } })
+				.sort({ _id: 1 })
+				.toArray(function (err, found_data) {
+					if (err) {
+						warming(res, 2);
+						throw err;
+					}
+					//console.log('getting data>>')
+					//console.log(found_data[0]['data'])
+					res.render('Page3', {
+						ID: '匿名者',
+						data: found_data[0]['data'],
+					});
+					found_connect.close();
+				});
+		}
+	);
 });
 
 /******************
-./CB/to_3
+./CB/to_3 棄用
 ******************/
 router.post('/to_3', async (req, res) => {
-    //console.log(req.body);
-    MongoClient.connect(GetUrl("data"), {
-        useUnifiedTopology: true
-    }, function (err, found_connect) {
-        if (err) { warming(res, 2); throw err; }
-        var found_database = found_connect.db("data");
-        found_database.collection("page3").find({}, { projection: { _id: 0 } }).sort({ _id: 1 }).toArray(function (err, found_data) {
-            if (err) { warming(res, 2); throw err; }
-            //console.log('getting ID>>')
-            //console.log(req.body.ID)
+	//console.log(req.body);
+	MongoClient.connect(
+		GetUrl('data'),
+		{
+			useUnifiedTopology: true,
+		},
+		function (err, found_connect) {
+			if (err) {
+				warming(res, 2);
+				throw err;
+			}
+			var found_database = found_connect.db('data');
+			found_database
+				.collection('page3')
+				.find({}, { projection: { _id: 0 } })
+				.sort({ _id: 1 })
+				.toArray(function (err, found_data) {
+					if (err) {
+						warming(res, 2);
+						throw err;
+					}
+					//console.log('getting ID>>')
+					//console.log(req.body.ID)
 
-            if (found_data.length < 1) {
-                //console.log("Cannot find any document in data.page3...")
-                res.render('Page3', {
-                    data: "",
-                    ID: req.body.ID
-                });
-                found_connect.close();
-            } else {
-                //console.log('getting data>>')
-                //console.log(found_data)
-                res.render('Page3', {
-                    ID: req.body.ID,
-                    data: found_data
-                });
-                found_connect.close();
-            }
-        })
-    });
+					if (found_data.length < 1) {
+						//console.log("Cannot find any document in data.page3...")
+						res.render('Page3', {
+							data: '',
+							ID: req.body.ID,
+						});
+						found_connect.close();
+					} else {
+						//console.log('getting data>>')
+						//console.log(found_data)
+						res.render('Page3', {
+							ID: req.body.ID,
+							data: found_data,
+						});
+						found_connect.close();
+					}
+				});
+		}
+	);
 });
 
 /******************
-./CB/direct_to_4
+./CB/direct_to_4 棄用
 ******************/
 router.post('/to_4', async (req, res) => {
-    //console.log(req.body);
-    try {
-        MongoClient.connect(GetUrl("data"), {
-            useUnifiedTopology: true
-        }, async (err, created_connect) => {
-            if (err) { warming(res, 2); throw err; }
-            var found_database = created_connect.db("data");
-            var information = {};
+	//console.log(req.body);
+	try {
+		MongoClient.connect(
+			GetUrl('data'),
+			{
+				useUnifiedTopology: true,
+			},
+			async (err, created_connect) => {
+				if (err) {
+					warming(res, 2);
+					throw err;
+				}
+				var found_database = created_connect.db('data');
+				var information = {};
 
-            found_database.collection("page4", function (err, found_collection) {
-                if (err) { warming(res, 2); throw err; }
-                found_collection.findOne({
-                    type: 'data'
-                }, { projection: { _id: 0, type: 0 } }, function (err, found_data) {
-                    if (err) { warming(res, 2); throw err; }
-                    information['data'] = found_data;
-                    found_collection.findOne({
-                        type: 'image'
-                    }, { projection: { _id: 0, type: 0 } }, function (err, found_data) {
-                        if (err) { warming(res, 2); throw err; }
-                        information['image'] = found_data;
-                        found_collection.findOne({
-                            type: 'title'
-                        }, { projection: { _id: 0, type: 0 } }, function (err, found_data) {
-                            if (err) { warming(res, 2); throw err; }
-                            information['title'] = found_data;
-                            found_collection.findOne({
-                                type: 'nick_name'
-                            }, { projection: { _id: 0, type: 0 } }, function (err, found_data) {
-                                information['nick_name'] = found_data;
+				found_database.collection('page4', function (err, found_collection) {
+					if (err) {
+						warming(res, 2);
+						throw err;
+					}
+					found_collection.findOne(
+						{
+							type: 'data',
+						},
+						{ projection: { _id: 0, type: 0 } },
+						function (err, found_data) {
+							if (err) {
+								warming(res, 2);
+								throw err;
+							}
+							information['data'] = found_data;
+							found_collection.findOne(
+								{
+									type: 'image',
+								},
+								{ projection: { _id: 0, type: 0 } },
+								function (err, found_data) {
+									if (err) {
+										warming(res, 2);
+										throw err;
+									}
+									information['image'] = found_data;
+									found_collection.findOne(
+										{
+											type: 'title',
+										},
+										{ projection: { _id: 0, type: 0 } },
+										function (err, found_data) {
+											if (err) {
+												warming(res, 2);
+												throw err;
+											}
+											information['title'] = found_data;
+											found_collection.findOne(
+												{
+													type: 'nick_name',
+												},
+												{ projection: { _id: 0, type: 0 } },
+												function (err, found_data) {
+													information['nick_name'] = found_data;
 
-                                //console.log('getting ID>>%s', req.body.ID)
-                                //console.log('data>>\n' + information.data['1'])
-                                //console.log('image>>\n' + information.image['1'])
-                                //console.log('title>>\n' + information.title['1'])
-                                //console.log('nick_name>>\n' + information.nick_name['1'])
+													//console.log('getting ID>>%s', req.body.ID)
+													//console.log('data>>\n' + information.data['1'])
+													//console.log('image>>\n' + information.image['1'])
+													//console.log('title>>\n' + information.title['1'])
+													//console.log('nick_name>>\n' + information.nick_name['1'])
 
-                                res.render('Page4', {
-                                    data: information.data,
-                                    image: information.image,
-                                    title: information.title,
-                                    nick_name: information.nick_name,
-                                    ID: req.body.ID
-                                });
-                                created_connect.close();
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    } catch (err) {
-        if (err) { warming(res, 2); throw err; }
-    }
+													res.render('Page4', {
+														data: information.data,
+														image: information.image,
+														title: information.title,
+														nick_name: information.nick_name,
+														ID: req.body.ID,
+													});
+													created_connect.close();
+												}
+											);
+										}
+									);
+								}
+							);
+						}
+					);
+				});
+			}
+		);
+	} catch (err) {
+		if (err) {
+			warming(res, 2);
+			throw err;
+		}
+	}
 });
 
 /************************************************
 ./CB/department/(abbreviation od department)
 ************************************************/
 router.post('/department/:postId', async (req, res) => {
-    //console.log(req.body);
-    try {
-        var department_name = req.params.postId.toString();
-        var department_board_name = department_name + "_board";
-        //console.log("department name>>" + department_name)
-        //console.log("board name>>" + department_board_name)
+	try {
+		var department_name = req.params.postId.toString();
+		var department_board_name = department_name + '_board';
 
-        if (department_name == 'YT') {
-            res.render('Page5', {
-                ID: req.body.ID,
-                password: req.body.password
-            })
-        } else {
-            MongoClient.connect(GetUrl("data"), {
-                useUnifiedTopology: true,
-                useNewUrlParser: true
-            }, async (err, db) => {
-                if (err) { warming(res, 2); throw err; }
+		if (department_name == 'YT') {
+			res.render('Page5', {
+				ID: req.body.ID,
+				password: await encrypt(req.body.ID, req.body.password),
+			});
+		} else {
+			MongoClient.connect(
+				GetUrl('data'),
+				{
+					useUnifiedTopology: true,
+					useNewUrlParser: true,
+				},
+				async (err, db) => {
+					if (err) {
+						warming(res, 2);
+						throw err;
+					}
 
-                var information = {};
-                var found_database = db.db("data");
-                found_database.collection(department_name).findOne({
-                    type: "department_introduce"
-                }, { projection: { _id: 0, type: 0 } }, async (err, found_data) => {
-                    if (err) { warming(res, 2); throw err; }
-                    information['introduce'] = (found_data == null) ? "" : found_data['text'];
+					var information = {};
+					var found_database = db.db('data');
+					found_database.collection(department_name).findOne(
+						{
+							type: 'department_introduce',
+						},
+						{ projection: { _id: 0, type: 0 } },
+						async (err, found_data) => {
+							if (err) {
+								warming(res, 2);
+								throw err;
+							}
+							information['introduce'] =
+								found_data == null ? '' : found_data['text'];
 
-                    found_database.collection(department_name).findOne({
-                        type: "department_keywords"
-                    }, { projection: { _id: 0, type: 0 } }, async (err, found_data) => {
-                        if (err) { warming(res, 2); throw err; }
-                        information['keyword'] = (found_data == null) ? "" : found_data;
+							found_database.collection(department_name).findOne(
+								{
+									type: 'department_keywords',
+								},
+								{ projection: { _id: 0, type: 0 } },
+								async (err, found_data) => {
+									if (err) {
+										warming(res, 2);
+										throw err;
+									}
+									information['keyword'] = found_data == null ? '' : found_data;
 
-                        found_database.collection(department_name).findOne({
-                            type: "department_tabs"
-                        }, { projection: { _id: 0, type: 0 } }, async (err, found_data) => {
-                            if (err) { warming(res, 2); throw err; }
-                            information['tabs'] = (found_data == null) ? "" : found_data;
+									await found_database.collection(department_name).findOne(
+										{
+											type: 'department_tabs',
+										},
+										{ projection: { _id: 0, type: 0 } },
+										async (err, found_data) => {
+											if (err) {
+												warming(res, 2);
+												throw err;
+											}
+											information['tabs'] =
+												found_data == null ? '' : found_data;
 
-                            found_database.collection(department_board_name).find({}, { projection: { _id: 0 } }).sort({ _id: 1 }).toArray(async (err, found_data) => {
-                                if (err) { warming(res, 2); throw err; }
+											await found_database
+												.collection(department_board_name)
+												.find({}, { projection: { _id: 0 } })
+												.sort({ _id: 1 })
+												.toArray(async (err, found_data) => {
+													if (err) {
+														warming(res, 2);
+														throw err;
+													}
 
-                                db.close();
-                                //console.log(information)
-                                //console.log('data>>')
-                                //console.log(found_data)
+													db.close();
 
-                                res.render('Page6', {
-                                    ID: req.body.ID,
-                                    DE: department_name,
-                                    introduce: information.introduce,
-                                    keywords: information.keyword,
-                                    tabs: information.tabs,
-                                    boards: found_data,
-                                    password: req.body.password
-                                });
-                            })
-
-                        })
-                    })
-                })
-            })
-
-        }
-    } catch (err) {
-        if (err) { warming(res, 2); throw err; }
-    }
+													res.render('Page6', {
+														ID: req.body.ID,
+														DE: department_name,
+														introduce: information.introduce,
+														keywords: information.keyword,
+														tabs: information.tabs,
+														boards: found_data,
+														password: await encrypt(
+															req.body.ID,
+															req.body.password
+														),
+													});
+												});
+										}
+									);
+								}
+							);
+						}
+					);
+				}
+			);
+		}
+	} catch (err) {
+		if (err) {
+			warming(res, 2);
+			throw err;
+		}
+	}
 });
 
 module.exports = router;
@@ -410,7 +528,6 @@ module.exports = router;
 //});
 //*/
 
-
 ///***********************
 //function for developer
 //***********************/
@@ -475,7 +592,6 @@ module.exports = router;
 //        })
 //    }
 //});
-
 
 ////新增資料
 //router.post('/', async (req, res) => {

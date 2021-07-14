@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <title>錯誤</title>
+</head>
+
+<body>
+  <script>
+    alert("憑證過期, 請返回首頁重新登入");
+    window.location.href = location.protocol + '//' + window.location.href.split('/')[2];
+  </script>
+</body>
+
+</html>
