@@ -183,7 +183,7 @@ function insert_public(req, res, num) {
 				num: num.toString(),
 				ID: req.body.ID,
 				title: req.body.title,
-				include: req.body.include,
+				include: req.body.include.replace(/<script.*?>.*?<\/script>/gi, ''),
 				hide: 'false',
 			};
 			table.insertOne(insertThing, function (err, result) {
@@ -565,7 +565,10 @@ function rewrite_update(req, res) {
 			var table = db.db('board').collection(req.body.board_ID);
 			var filter = { num: req.body.num };
 			var goal = {};
-			goal['include'] = req.body.include;
+			goal['include'] = req.body.include.replace(
+				/<script.*?>.*?<\/script>/gi,
+				''
+			);
 			table.updateOne(filter, { $set: goal }, function (err, result) {
 				if (err) {
 					warming(res, 2);
