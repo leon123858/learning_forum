@@ -240,11 +240,11 @@ function jumpPublic(req, board_ID, ID, res) {
 //add lover
 const getBoardName = (db, req) => {
 	return new Promise((resolve, reject) => {
-		var table = db.db('data').collection('ALL_board');
+		var table = db.db('board').collection('all_board_number');
 		var filter = { board_ID: req.query.board_ID };
 		table.findOne(
 			filter,
-			{ projection: { _id: 0, include: 0 } },
+			{ projection: { _id: 0, introduce: 0 } },
 			function (err, result) {
 				if (err) {
 					reject({ result: 'error' });
@@ -276,7 +276,7 @@ const loverUpdate = (db, req, name) => {
 
 function add_lover(req, res) {
 	MongoClient.connect(
-		uri + 'data',
+		uri + 'board',
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		async function (err, db) {
 			if (err) {
