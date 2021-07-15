@@ -181,7 +181,7 @@
                     <%for(var key in notice){%>
                         <% var n_inform=key.split('_') ;%>
 
-                            <div id="<%-notice[key]%>" class=" container">
+                            <div id="<%-key%>" class=" container">
                                 <div class="row w-100 row-cols-3  pb-1">
                                     <!-- english to chinese -->
                                     <% if(n_inform[0]==='private' ){%>
@@ -190,7 +190,7 @@
                                             <span class="col-md-2 col-sm-2"><b>Type: </b><br>公開</span>
                                             <%}%>
                                                 <span class="col-md-3 col-sm-1"><b>Board: </b><br>
-                                                    <%= n_inform[0] + '_' + n_inform[1]%>
+                                                    <%= notice[key]%>
                                                 </span>
                                                 <span class="col-md-2 col-sm-2"><b>Place: </b><br>
                                                     <%= n_inform[2] %>
@@ -198,14 +198,14 @@
                                                 <div class="col-md-5 col-sm-3 d-inline-flex ">
                                                     <input type=button value=直接進入版面
                                                         class="ml-2 btn btn-outline-secondary <%= n_inform[0] %>"
-                                                        onclick="change_Page('<%=notice[key]%>','notice')" />
+                                                        onclick="change_Page('<%=key%>','notice')" />
                                                     <input type=button value=刪除 class="ml-2 btn btn-outline-danger"
-                                                        onclick="delete_List('<%-notice[key]%>','notice')" />
+                                                        onclick="delete_List('<%-key%>','notice')" />
 
-                                                    <form id="notice<%=notice[key]%>" method="POST"
+                                                    <form id="notice<%=key%>" method="POST"
                                                         action="/JB/to_<%=n_inform[0]%>_board" style="display:none">
                                                         <% if(n_inform[0]==='private' ){%>
-                                                            <input type="password" id="pw-notice<%=notice[key]%>"
+                                                            <input type="password" id="pw-notice<%=key%>"
                                                                 name="board_password" />
                                                             <input type="submit" value="確認" />
                                                             <%}%>

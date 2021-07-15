@@ -238,10 +238,10 @@ function jumpPublic(req, board_ID, ID, res) {
 }
 
 //add lover
-const getBoardName = (db, req) => {
+const getBoardName = (db, board_ID) => {
 	return new Promise((resolve, reject) => {
 		var table = db.db('board').collection('all_board_number');
-		var filter = { board_ID: req.query.board_ID };
+		var filter = { board_ID: board_ID };
 		table.findOne(
 			filter,
 			{ projection: { _id: 0, introduce: 0 } },
@@ -284,7 +284,7 @@ function add_lover(req, res) {
 				throw err;
 			}
 
-			await getBoardName(db, req)
+			await getBoardName(db, req.query.board_ID)
 				.then((pkg) => loverUpdate(db, req, pkg.result))
 				.then((pkg) => res.json(pkg))
 				.catch((err) => res.json(err));
@@ -410,18 +410,19 @@ function discuss_notice_add(req, data) {
 					if (list[i] != req.body.ID)
 						discuss_notice_send(
 							list[i],
-							req.body.board_ID + '_' + req.body.num
+							req.body.board_ID + '_' + req.body.num,
+							req.body.board_ID
 						);
 			});
 		}
 	);
 }
 
-function discuss_notice_send(id, key) {
+function discuss_notice_send(id, key, board_ID) {
 	MongoClient.connect(
 		uri + 'people',
 		{ useNewUrlParser: true, useUnifiedTopology: true },
-		function (err, db) {
+		async function (err, db) {
 			if (err) {
 				warming(res, 2);
 				throw err;
@@ -429,15 +430,21 @@ function discuss_notice_send(id, key) {
 			var table = db.db('people').collection('personal_notice');
 			var filter = { ID: id };
 			var goal = {};
-			goal[key] = key;
-			table.updateOne(filter, { $set: goal }, function (err, result) {
-				if (err) {
-					warming(res, 2);
-					throw err;
-				}
-				db.close();
-				//console.log(id+'->' + key);
-			});
+
+			try {
+				const { result: boardName } = await getBoardName(db, board_ID);
+				goal[key] = boardName;
+				await table.updateOne(filter, { $set: goal }, function (err, result) {
+					if (err) {
+						warming(res, 2);
+						throw err;
+					}
+				});
+			} catch (err) {
+				warming(res, 2);
+				throw err;
+			}
+			await db.close();
 		}
 	);
 }

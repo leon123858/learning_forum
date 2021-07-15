@@ -717,19 +717,15 @@ router.post('/delete_notice', async (req, router_result) => {
 				//console.log("goal key name >>\t\"%s\"", goal_key_name);
 
 				var found_database = found_connect.db('people');
-				var filter1 = {
-					ID: req.body.ID,
-				};
-				var filter2 = {
-					ID: req.body.ID,
-				};
+				const exists = {};
+				exists[goal_key_name] = { $exists: true };
+				var filter = { $and: [{ ID: req.body.ID }, exists] };
 				var goal = {};
-				filter1[goal_key_name] = goal_key_name;
 				goal[goal_key_name] = '';
 
 				found_database
 					.collection('personal_notice')
-					.findOne(filter1, function (err, ret) {
+					.findOne(filter, function (err, ret) {
 						if (err) {
 							warming(router_result, 2);
 							throw err;
@@ -740,7 +736,7 @@ router.post('/delete_notice', async (req, router_result) => {
 							});
 						} else {
 							found_database.collection('personal_notice').updateOne(
-								filter2,
+								filter,
 								{
 									$unset: goal,
 								},
