@@ -36,12 +36,12 @@
 </header>
 
 <body>
-    <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+    <div class="container" style="font-family: 'Microsoft JhengHei';font-size: 130%;">
         <!-- <div class="text-center jumbotron">
             <h1><small><%=board_ID%></small></h1>
             <small>You are <%=ID%></small>     <button type="button" class="btn btn-link">加到我的最愛</button>
         </div> -->
-        <div id="introduce" style="text-align:center" class="bg-success"></div>
+        <div id="introduce" class="bg-success"></div>
         <!-- 篩選功能-->
         <div id="find" class="bg-warning text-center">
             找帳號或主題關鍵字: <input type="text" class="bg-warning" /><input type="button" value="篩選主題"
@@ -83,7 +83,7 @@
                     <div class="include" style="word-wrap: break-word;">
                         <%-data[i]['include']%>
                     </div> <br />
-                    <input class="btn-lg bg-warning" type="button" value="展開內容" />
+                    <input class="btn btn-warning" type="button" value="展開內容" />
                     <!-- 寄留言-->
                     <form action="/DB/discuss" method="post">
                         <input type="text" name="num" value="<%=data[i]['num']%>" />

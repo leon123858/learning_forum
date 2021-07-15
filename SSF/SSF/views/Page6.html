@@ -9,7 +9,7 @@
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -17,7 +17,7 @@
 </head>
 <!-- Header title -->
 <header>
-    <div name="Title" class="jumbotron  mb-0 ">
+    <div name="Title" style="font-family: 'Microsoft JhengHei'" class="jumbotron  mb-0 ">
         <button class="btn btn-outline-dark  float-left" onclick="history.back()">上一頁</button>
         <div class="text-center  align-self-center">
             <h1>議題討論區</h1>
@@ -28,7 +28,7 @@
     </div> -->
 </header>
 
-<body style="font-family: 'Roboto Slab', cursive;">
+<body style="font-family: 'Microsoft JhengHei', cursive;">
     <div class=" container-fluid">
 
         <div class="row" style="height: 800px;">
@@ -37,14 +37,14 @@
                 <div class="mt-4  d-flex flex-column">
                     <!-- SHOW ALL -->
                     <div class="p-1">
-                        <button class="btn btn-primary  btn-block " value="all" >全部顯示</button>
+                        <button class="btn btn-primary  btn-block " value="all">全部顯示</button>
                     </div>
                     <!-- 關鍵搜尋 -->
                     <div class="w-100  p-1">
                         <!-- 延展button -->
                         <button class="btn btn-primary dropdown-toggle btn-block " type="button" id="dropdownMenuButton"
-                                data-toggle="collapse" data-target="#keywordpanel" aria-haspopup="true"
-                                aria-expanded="false" >
+                            data-toggle="collapse" data-target="#keywordpanel" aria-haspopup="true"
+                            aria-expanded="false">
                             關鍵字搜尋
                         </button>
 
@@ -53,12 +53,11 @@
                             <div class="input-group pb-1 pt-1">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="fa fa-search"
-                                           aria-hidden="true"></i>
+                                        <i class="fa fa-search" aria-hidden="true"></i>
                                     </span>
                                 </div>
                                 <input id="self-search" type="text" class="form-control" placeholder="輸入關鍵字"
-                                       aria-label="specific">
+                                    aria-label="specific">
                             </div>
                             <!-- 常見標籤 -->
                             <label class=" list-group-item-dark text-center w-100 m-0 p-2">
@@ -66,10 +65,11 @@
                             </label>
                             <div class="list-group">
                                 <%for(var key in keywords){%>
-                                <a data-toggle="list" role="tab" class="list-group-item list-group-item-action clearfix list-group-item-heading
-                                 text-center p-1" id='keywords<%=keywords[key]%>'
-                                   style="cursor: pointer;"><%=keywords[key]%></a>
-                                <%}%>
+                                    <a data-toggle="list" role="tab" class="list-group-item list-group-item-action clearfix list-group-item-heading
+                                 text-center p-1" id='keywords<%=keywords[key]%>' style="cursor: pointer;">
+                                        <%=keywords[key]%>
+                                    </a>
+                                    <%}%>
                             </div>
                         </div>
                     </div>
@@ -83,23 +83,22 @@
                     <h3 class="text-center m-auto" style="display: none;">查無相關列表</h3>
                     <%for(var i=0;i<boards.length;i++){%>
                         <a class="list-group-item list-group-item-action list-group-item-success"
-                           id="list-<%=boards[i]['board_ID']%>" data-toggle="list" role="tab"
-                           text-tab="<%=boards[i]['tab']%>" text-title="<%=boards[i]['title']%>"
-                           style="display: block">
+                            id="list-<%=boards[i]['board_ID']%>" data-toggle="list" role="tab"
+                            text-tab="<%=boards[i]['tab']%>" text-title="<%=boards[i]['title']%>"
+                            style="display: block">
                             <strong class=" text-center">
                                 <%=boards[i]['tab']%>:
-                                <%=boards[i]['title']%>
+                                    <%=boards[i]['title']%>
                             </strong>
                             <!--跳轉按鈕-->
-                            <input type="submit" class="btn btn-danger  float-right"
-                                   name="<%=boards[i]['board_ID']%>" id='submit-btn' value='進入'>
+                            <input type="submit" class="btn btn-danger  float-right" name="<%=boards[i]['board_ID']%>"
+                                id='submit-btn' value='進入'>
                             <form method="POST" action="/JB/to_public_board" id="<%=boards[i]['board_ID']%>"
-                                  name="<%=boards[i]['tab']%>">
+                                name="<%=boards[i]['tab']%>">
                                 <input type='text' name='ID' value='<%=ID%>' style="display: none;">
                                 <input type='text' name='board_ID' value="<%=boards[i]['board_ID']%>"
-                                       style="display: none;">
-                                <input type='password' name='password' value="<%=password%>"
-                                       style="display: none;">
+                                    style="display: none;">
+                                <input type='password' name='password' value="<%=password%>" style="display: none;">
                             </form>
                         </a>
                         <%}%>
@@ -115,7 +114,7 @@
                 <div class=" tab-content" id="nav-tabContent">
                     <%for(var i=0;i<boards.length;i++){%>
                         <div class="tab-pane fade " id="panel-<%=boards[i]['board_ID']%>" role="tabpanel"
-                             aria-labelledby="list-<%=boards[i]['board_ID']%>">
+                            aria-labelledby="list-<%=boards[i]['board_ID']%>">
                             <p style=" text-align: justify;text-justify: inter-word;">
                                 <%-boards[i]['include']%>
                             </p>
@@ -148,7 +147,7 @@
         $('button[value = "all"]').click(unlock_List);
         //關鍵搜尋點選
         $('#self-search').click(function () {
-          //  $('.list-group-item-heading').removeClass('show active');//常見關鍵字取消
+            //  $('.list-group-item-heading').removeClass('show active');//常見關鍵字取消
         });
 
         //點選列表
@@ -213,7 +212,7 @@
         */
         function select_Topic(mode, kind) {
             $('#list-tab >h3').hide();
-            if (kind == 'all') {             
+            if (kind == 'all') {
                 unlock_List();
                 return;
             }
@@ -229,20 +228,20 @@
                 for (j = 0; i >= 0, j < 100; --i, ++j) {
                     if (tab_list[i] != undefined) {
                         let search = tab_list[i].getAttribute(mode).toString().toLowerCase();
-                        let check = tab_list[i].getAttribute('style');                     
-                        if (!search.includes(kind)) {   
+                        let check = tab_list[i].getAttribute('style');
+                        if (!search.includes(kind)) {
                             tab_list[i].setAttribute('style', 'display: none');
-                        } else if (check =="display: block" || mode == "text-tab" || now_tag=="all") {
+                        } else if (check == "display: block" || mode == "text-tab" || now_tag == "all") {
                             console.log(check);
                             hasTab = true;
                             tab_list[i].setAttribute('style', 'display: block');
-                            }
-                        }                  
+                        }
+                    }
                 }
                 if (i >= 0) window.setTimeout(appenditems, 0);
                 if (i < 0) {
                     hasTab ? $('#list-tab >h3').hide() : $('#list-tab >h3').show();
-                }  
+                }
             }
             appenditems();
         }
@@ -273,4 +272,5 @@
         // }
     </script>
 </body>
+
 </html>

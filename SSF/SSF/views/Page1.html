@@ -29,7 +29,7 @@
     </div>
 </header>
 
-<body id="main" style="font-family: 'Roboto Slab', cursive;">
+<body id="main" style="font-family: 'Microsoft JhengHei', cursive;">
     <div class="container-fluid">
         <div class="row ">
             <!--image-->
@@ -45,31 +45,31 @@
 
                         <div>
                             <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                    data-toggle="collapse" data-target="#log-in-form" value='log-in'>
+                                data-toggle="collapse" data-target="#log-in-form" value='log-in'>
                                 登入
                             </button>
                         </div>
                         <div>
                             <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                    data-toggle="collapse" data-target="#register-form" value='register'>
+                                data-toggle="collapse" data-target="#register-form" value='register'>
                                 註冊
                             </button>
                         </div>
                         <div>
                             <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                    data-toggle="collapse" id="ReSendMail">
+                                data-toggle="collapse" id="ReSendMail">
                                 重寄驗證信
                             </button>
                         </div>
                         <div>
                             <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                    data-toggle="collapse" id="ForgetPassword">
+                                data-toggle="collapse" id="ForgetPassword">
                                 忘記密碼
                             </button>
                         </div>
                         <div>
                             <a id='toManage' type="button" class="btn btn-outline-warning btn-lg mb-1 btn-block"
-                               href="">
+                                href="">
                                 老師管理
                             </a>
                         </div>
@@ -149,7 +149,7 @@
                                     <option>女</option>
                                 </select>
                             </div>
-                            <div id="verify2"  style="text-align:center"></div>
+                            <div id="verify2" style="text-align:center"></div>
                             <input id="sign_up" type="submit" class=" btn btn-secondary  mt-2" />
                         </form>
                     </div>
@@ -159,7 +159,9 @@
             <!-- 介紹區 -->
             <div id="intro-div" class="col-md-4 d-flex" style="height: 700px ">
                 <div class=" pt-5">
-                    <h1 class=" text-center"><%=title%></h1>
+                    <h1 class=" text-center">
+                        <%=title%>
+                    </h1>
                     <br>
                     <%-include%>
                 </div>
@@ -186,7 +188,7 @@
                 }
             }
             $("#ReSendMail").click(function () {
-                var ID = prompt("請輸入您的個人帳號",'');
+                var ID = prompt("請輸入您的個人帳號", '');
                 if (ID != '') {
                     $.post("/SAN/" + $(this).attr('id'), { ID: ID }, function (result) {
                         if (result.result == 'success')
@@ -203,7 +205,7 @@
                     alert('帳號不可為空');
             });
             $("#ForgetPassword").click(function () {
-                var ID = prompt("請輸入您的個人帳號",'');
+                var ID = prompt("請輸入您的個人帳號", '');
                 if (ID != '') {
                     $.post("/SAN/" + $(this).attr('id'), { ID: ID }, function (result) {
                         if (result.result == 'success')
@@ -287,7 +289,8 @@
     <h5 class="text-center">
         政治系●法律系●教育所●經濟系●心理系
         <br>
-        【自發】X【互動】X【共好】</h5>
+        【自發】X【互動】X【共好】
+    </h5>
 </footer>
 
 </html>
