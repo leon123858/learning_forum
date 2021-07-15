@@ -316,7 +316,7 @@ router.post('/department/:postId', async (req, res) => {
 											await found_database
 												.collection(department_board_name)
 												.find({}, { projection: { _id: 0 } })
-												.sort({ _id: 1 })
+												.sort({ _id: -1 })
 												.toArray(async (err, found_data) => {
 													if (err) {
 														warming(res, 2);
