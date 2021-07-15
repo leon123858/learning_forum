@@ -133,8 +133,8 @@
                     <h3>我的最愛</h3>
                     <hr>
                     <%for(var key in lover){%>
-                        <% var l_inform=lover[key].split('_') ;%>
-                            <div id="<%-lover[key]%>" class="container">
+                        <% var l_inform=key.split('_') ;%>
+                            <div id="<%-key%>" class="container">
                                 <div class="row w-100 p-1 row-cols-2">
                                     <!-- english to chinese -->
                                     <% if(l_inform[0]==='private' ){%>
@@ -144,20 +144,20 @@
                                             <%}%>
 
                                                 <span class="col-md-4 col-sm-2"><b>Board: </b><br>
-                                                    <%=l_inform[0] + '_' + l_inform[1]%>
+                                                    <%=lover[key]%>
                                                 </span>
 
                                                 <div class="col-md-5 col-sm-4 d-inline-flex ">
                                                     <input type=button value=直接進入版面
                                                         class="ml-2 btn btn-outline-secondary"
-                                                        onclick="change_Page('<%=lover[key]%>','lover')" />
+                                                        onclick="change_Page('<%=key%>','lover')" />
                                                     <input type=button value=刪除 class="ml-2 btn btn-outline-danger "
-                                                        onclick="delete_List('<%-lover[key]%>', 'lover')" />
-                                                    <form id="lover<%=lover[key]%>" method="POST"
+                                                        onclick="delete_List('<%-key%>', 'lover')" />
+                                                    <form id="lover<%=key%>" method="POST"
                                                         action="/JB/to_<%= l_inform[0] %>_board"
                                                         style="margin: 10px; display: none;">
                                                         <% if(l_inform[0]==='private' ){%>
-                                                            <input type="password" id="pw-lover<%=lover[key]%>"
+                                                            <input type="password" id="pw-lover<%=key%>"
                                                                 name="board_password" />
                                                             <input type="submit" value="確認" />
                                                             <%}%>
@@ -179,7 +179,7 @@
                     <h3>我的通知</h3>
                     <hr>
                     <%for(var key in notice){%>
-                        <% var n_inform=notice[key].split('_') ;%>
+                        <% var n_inform=key.split('_') ;%>
 
                             <div id="<%-notice[key]%>" class=" container">
                                 <div class="row w-100 row-cols-3  pb-1">

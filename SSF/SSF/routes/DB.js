@@ -238,29 +238,57 @@ function jumpPublic(req, board_ID, ID, res) {
 }
 
 //add lover
+const getBoardName = (db, req) => {
+	return new Promise((resolve, reject) => {
+		var table = db.db('data').collection('ALL_board');
+		var filter = { board_ID: req.query.board_ID };
+		table.findOne(
+			filter,
+			{ projection: { _id: 0, include: 0 } },
+			function (err, result) {
+				if (err) {
+					reject({ result: 'error' });
+					throw err;
+				}
+				resolve({ result: result.title });
+			}
+		);
+	});
+};
+
+const loverUpdate = (db, req, name) => {
+	return new Promise((resolve, reject) => {
+		var table = db.db('people').collection('personal_lover');
+		var filter = { ID: req.query.ID };
+		var goal = {};
+		goal[req.query.board_ID] = name;
+		//console.log(filter);
+		table.updateOne(filter, { $set: goal }, function (err, result) {
+			if (err) {
+				reject({ result: 'error' });
+				throw err;
+			}
+			//console.log(result);
+			resolve({ result: 'success' });
+		});
+	});
+};
+
 function add_lover(req, res) {
 	MongoClient.connect(
-		uri + 'people',
+		uri + 'data',
 		{ useNewUrlParser: true, useUnifiedTopology: true },
-		function (err, db) {
+		async function (err, db) {
 			if (err) {
 				warming(res, 2);
 				throw err;
 			}
-			var table = db.db('people').collection('personal_lover');
-			var filter = { ID: req.query.ID };
-			var goal = {};
-			goal[req.query.board_ID] = req.query.board_ID;
-			//console.log(filter);
-			table.updateOne(filter, { $set: goal }, function (err, result) {
-				if (err) {
-					res.json({ result: 'error' });
-					throw err;
-				}
-				db.close();
-				//console.log(result);
-				res.json({ result: 'success' });
-			});
+
+			await getBoardName(db, req)
+				.then((pkg) => loverUpdate(db, req, pkg.result))
+				.then((pkg) => res.json(pkg))
+				.catch((err) => res.json(err));
+			db.close();
 		}
 	);
 }

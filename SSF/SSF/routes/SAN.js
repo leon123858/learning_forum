@@ -644,23 +644,19 @@ router.post('/delete_lover', async (req, router_result) => {
 					warming(router_result, 2);
 					throw err;
 				}
-				//console.log("Input ID >>\t\t\"%s\"", req.body.ID);
-				//console.log("Input borad_ID >>\t\"%s\"", req.body.board_ID);
+				//console.log('Input ID >>\t\t"%s"', req.body.ID);
+				//console.log('Input borad_ID >>\t"%s"', req.body.board_ID);
 
 				var found_database = found_connect.db('people');
-				var filter1 = {
-					ID: req.body.ID,
-				};
-				var filter2 = {
-					ID: req.body.ID,
-				};
+				const exists = {};
+				exists[req.body.board_ID] = { $exists: true };
+				var filter = { $and: [{ ID: req.body.ID }, exists] };
 				var goal = {};
-				filter1[req.body.board_ID] = req.body.board_ID;
 				goal[req.body.board_ID] = '';
 
 				found_database
 					.collection('personal_lover')
-					.findOne(filter1, function (err, ret) {
+					.findOne(filter, function (err, ret) {
 						if (err) {
 							warming(router_result, 2);
 							throw err;
@@ -671,7 +667,7 @@ router.post('/delete_lover', async (req, router_result) => {
 							});
 						} else {
 							found_database.collection('personal_lover').updateOne(
-								filter2,
+								filter,
 								{
 									$unset: goal,
 								},
