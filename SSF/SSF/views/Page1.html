@@ -206,20 +206,27 @@
             });
             $("#ForgetPassword").click(function () {
                 var ID = prompt("請輸入您的個人帳號", '');
-                if (ID != '') {
-                    $.post("/SAN/" + $(this).attr('id'), { ID: ID }, function (result) {
-                        if (result.result == 'success')
-                            alert('已成功寄出含密碼的電子郵件, 請至您註冊時填寫的信箱查看');
-                        else if (result.result == 'already')
-                            alert('未認證郵箱不可使用本功能, 請先認證您的郵箱');
-                        else if (result.result == 'null')
-                            alert('該帳號不存在, 請確認輸入帳號正確');
-                        else
-                            alert('系統出現問題, 請稍後再試, 或聯絡我們。')
-                    });
-                }
-                else
+                if (ID == '') {
                     alert('帳號不可為空');
+                    return;
+                }
+                var mail = prompt("請輸入註冊時您輸入的email", "");
+                if (mail == '') {
+                    alert('信箱不可為空');
+                    return;
+                }
+                $.post("/SAN/" + $(this).attr('id'), { ID: ID, mail: mail }, function (result) {
+                    if (result.result == 'success')
+                        alert('已成功寄出含變更後密碼的電子郵件, 請至您註冊時填寫的信箱查看');
+                    else if (result.result == "wrongMail")
+                        alert('輸入信箱不匹配')
+                    else if (result.result == 'already')
+                        alert('未認證郵箱不可使用本功能, 請先認證您的郵箱');
+                    else if (result.result == 'null')
+                        alert('該帳號不存在, 請確認輸入帳號正確');
+                    else
+                        alert('系統出現問題, 請稍後再試, 或聯絡我們。')
+                });
             });
             $("#main").on('click', function (event) {
                 if (event.target.tagName == "DIV") {

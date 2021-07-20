@@ -513,7 +513,6 @@ function sendSecConfirmMail(pkg) {
 		mailTransport.sendMail(mailOtions, function (error, info) {
 			if (error) {
 				reject({ result: 'error' });
-				throw error;
 			}
 			// 發信成功就轉回
 			resolve({ result: 'success' });
@@ -549,7 +548,7 @@ router.post('/ReSendMail', function (req, res) {
 //1.看是否存在,存在就取得密碼與信箱與激活狀態
 //不存在:null, 未認證: already
 //2.寄出密碼 成功:success
-function GetPasswordAndMail(db, ID) {
+function GetPasswordAndMail(db, ID, inputMail) {
 	return new Promise((resolve, reject) => {
 		var table = db.db('people').collection('personal_information');
 		table.findOne(
@@ -561,6 +560,7 @@ function GetPasswordAndMail(db, ID) {
 					throw err;
 				}
 				if (result == null) reject({ result: 'null' });
+				else if (result.mail != inputMail) reject({ result: 'wrongMail' });
 				else if (!result.activate) reject({ result: 'already' });
 				else resolve({ ID: ID, mail: result.mail });
 			}
@@ -568,9 +568,9 @@ function GetPasswordAndMail(db, ID) {
 	});
 }
 
-function changePassword(db, pkg) {
+function changePassword(db, pkg, newPassword) {
 	return new Promise((resolve, reject) => {
-		const psd = randomString(6);
+		const psd = newPassword;
 		var table = db.db('people').collection('personal_information');
 		table.updateOne(
 			{ ID: pkg.ID },
@@ -580,13 +580,13 @@ function changePassword(db, pkg) {
 					reject({ result: 'error' });
 					throw err;
 				}
-				resolve({ password: psd, mail: pkg.mail });
+				resolve({ result: 'success' });
 			}
 		);
 	});
 }
 
-function sendPassword(pkg) {
+function sendPassword(pkg, newPassword) {
 	return new Promise((resolve, reject) => {
 		// 設置發信內容
 		var mailOtions = {
@@ -596,21 +596,21 @@ function sendPassword(pkg) {
 			//text: 'XXXX', // 單純文字內容
 			html:
 				'<h1>親愛的使用者您好</h1><h2>我們是高中教師社會科學增能平台, 您使用了本平台會員密碼通知功能, 您的新密碼是<strong>' +
-				pkg.password +
+				newPassword +
 				'</strong>, 請用此密碼登入後再更改為新密碼, 謝謝您的使用</h2>',
 		};
 		mailTransport.sendMail(mailOtions, function (error, info) {
 			if (error) {
 				reject({ result: 'error' });
-				throw error;
 			}
 			// 發信成功就轉回
-			resolve({ result: 'success' });
+			resolve({ ID: pkg.ID });
 		});
 	});
 }
 router.post('/ForgetPassword', function (req, res) {
 	var ID = req.body.ID;
+	const inputMail = req.body.mail;
 	MongoClient.connect(
 		GetUrl('people'),
 		{ useNewUrlParser: true, useUnifiedTopology: true },
@@ -619,9 +619,10 @@ router.post('/ForgetPassword', function (req, res) {
 				res.json({ result: 'error' });
 				throw err;
 			}
-			GetPasswordAndMail(db, ID)
-				.then((pkg) => changePassword(db, pkg))
-				.then((pkg) => sendPassword(pkg))
+			const newPassword = randomString(6);
+			GetPasswordAndMail(db, ID, inputMail)
+				.then((pkg) => sendPassword(pkg, newPassword))
+				.then((pkg) => changePassword(db, pkg, newPassword))
 				.then((pkg) => res.json(pkg))
 				.catch((error) => res.json(error))
 				.finally((pkg) => db.close());
