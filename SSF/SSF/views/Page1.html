@@ -23,62 +23,100 @@
         }
     }
 </style>
-<header>
-    <div name="Title" class="jumbotron text-center  mb-0">
-        <h2>高中教師社會科學增能平台</h2>
+<header style="font-family: 'Yu Gothic';">
+    <div style="background-color:#CCEEFF; width: 100%;">
+        &nbsp;&nbsp;
     </div>
+    <nav class="navbar navbar-light" style="background-color: white;">
+        <div class="row">
+            <a class="navbar-brand col-6" href="http://140.116.183.54:1337/">
+                <div class="row">
+                    <div class="d-none d-md-inline col-md-2">
+                        <img src="images/Logo.png" class="w-100" alt="">
+                    </div>
+                    <div class="col-9">
+                        高中教師社會科學增能平台<br>UFO Teacher Empowerment Platform
+                    </div>
+                </div>
+            </a>
+            <div class="navbar-brand col-2" style="display:flex;align-items: center;">
+                <a id="toManage" href="" class="d-none d-md-inline" style="color: black;">
+                    教師版面登入
+                </a>
+            </div>
+        </div>
+    </nav>
+    <hr>
 </header>
 
-<body id="main" style="font-family: 'Microsoft JhengHei', cursive;">
+<body id="main" style="font-family: 'Yu Gothic', cursive;">
     <div class="container-fluid">
         <div class="row ">
             <!--image-->
-            <div id="image-div" class="col-md-4  p-0 mt-2">
-                <img class=" Thumbnail" src="https://i.imgur.com/nBsk21U.jpg" alt="department-image"
-                    style="width:100%; ">
-            </div>
-
-            <div class="col-md-4 ">
-
-                <div class=" justify-content-center d-flex align-items-center mt-5 text-center">
-                    <div class="mt-3">
-
-                        <div>
-                            <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                data-toggle="collapse" data-target="#log-in-form" value='log-in'>
-                                登入
-                            </button>
+            <div id="image-div" class="d-none d-md-inline col-md-8  p-0 mt-2">
+                <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="images/slide1.png" alt="First slide">
                         </div>
-                        <div>
-                            <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                data-toggle="collapse" data-target="#register-form" value='register'>
-                                註冊
-                            </button>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="images/slide2.png" alt="Second slide">
                         </div>
-                        <div>
-                            <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                data-toggle="collapse" id="ReSendMail">
-                                重寄驗證信
-                            </button>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="images/slide3.png" alt="Third slide">
                         </div>
-                        <div>
-                            <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                data-toggle="collapse" id="ForgetPassword">
-                                忘記密碼
-                            </button>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <br>
+                <div>
+                    <div class="row">
+                        <div class="col-1">
+                            <img src="images/planIntro.png" width="100%">
                         </div>
-                        <div>
-                            <a id='toManage' type="button" class="btn btn-outline-warning btn-lg mb-1 btn-block"
-                                href="">
-                                老師管理
-                            </a>
+                        <div class="col-11" style="font-size: 120%;">
+                            <h1>關於本計畫</h1>
+                            &nbsp;&nbsp;本計畫本國立大學對於社會應盡之責任，預計建構高等教育與高中教育社會科學資源平台，永續國家公民教育。<br>
+                            &nbsp;&nbsp;本計畫預計挹注成功大學社會科學院師資，協助高中端建立社會科學學習資料庫，陪伴高中教師進行專業諮詢，豐富課程設計、刺激議題互動探討、引發自發性學習，實踐社會科學人才紮根，以達社會共好。
                         </div>
 
                     </div>
                 </div>
-                <!-- 表單發送區 -->
-                <div id="content-div" class="pt-4  h-25">
-                    <!-- <div id="log-in-form" class="div-collapse collapse text-center" data-parent="#content-div">
+            </div>
+
+            <div class="col-md-3 "
+                style="border-width:2px;border-style:solid;border-color:gray;padding:10px;margin: 10px;">
+                <div>
+                    <br>
+                    <h3>
+                        <button type="button" id="login-btn"
+                            style=" background-color: white; color: gray; border: none;">
+                            <strong>登入</strong>
+                        </button>&nbsp;&nbsp;|&nbsp;&nbsp;<button type="button" id="reigister-btn"
+                            style=" background-color: white; color: black; border: none;">
+                            <strong>註冊</strong>
+                        </button>
+                    </h3>
+                </div>
+                <br>
+                <div class=" w-100">
+
+
+                    <!-- 表單發送區 -->
+                    <div id="content-div" style="width: 100%; height: 300px;">
+                        <!-- <div id="log-in-form" class="div-collapse collapse text-center" data-parent="#content-div">
                         <form id="sign_in_form" method="post" action="/SAN/sign_in" class="carousel-item-right">
                             <div style="font-family:  'Arial Narrow', Arial, sans-serif;">
                                 <input type="text" name='ID' placeholder="ID" />
@@ -90,26 +128,34 @@
                         </form>
                       
                     </div> -->
-                    <!--登入 -->
-                    <div id="log-in-form" class="div-collapse collapse text-center" data-parent="#content-div">
-                        <form method="post" action="/SAN/sign_in" id="sign_in_form">
-                            <div class="w-75 text-center m-auto"
-                                style="font-family:  'Arial Narrow', Arial, sans-serif; ">
-                                <input type="text" name='ID' class="form-control mb-1" placeholder="ID" />
-                                <div class="input-group ">
-                                    <input type="password" name='password' class="form-control mb-1" placeholder="密碼" />
-                                    <div class="input-group-append">
-                                        <span class="input-group-text eyes mb-1" style="cursor: pointer;"><i
-                                                class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                        <!--登入 -->
+                        <div id="log-in-form" class="text-center">
+                            <form method="post" action="/SAN/sign_in" id="sign_in_form">
+                                <div class="w-100 text-center m-auto">
+                                    <input type="text" name='ID' class="form-control mb-1 " placeholder="ID"
+                                        style="border-radius: 0%;" />
+                                    <div class="input-group ">
+                                        <input type="password" name='password' class="form-control mb-1"
+                                            placeholder="密碼" style="border-radius: 0%;" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text eyes mb-1" style="cursor: pointer;"><i
+                                                    class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div id="verify" style="text-align:center"></div>
+                                    </div>
+                                    <div class="col-4">
+                                        <input id="sign_in" type="submit" class=" btn btn-secondary"
+                                            style="border-radius: 0%;width: 100%;height: 100%;" />
                                     </div>
                                 </div>
-
-                            </div>
-                            <div id="verify" style="text-align:center"></div>
-                            <input id="sign_in" type="submit" class=" btn btn-secondary mt-2" />
-                        </form>
-                    </div>
-                    <!-- <div id="register-form" class="div-collapse collapse text-center" data-parent="#content-div">
+                            </form>
+                        </div>
+                        <!-- <div id="register-form" class="div-collapse collapse text-center" data-parent="#content-div">
                         <form id="sign_up_form" method="post" action="/SAN/register" class="carousel-item-right">
                             <div style="font-family:  'Arial Narrow', Arial, sans-serif;">
                                 <input type="text" name='ID' placeholder="ID" required />
@@ -126,38 +172,137 @@
                         <br /><br /><br />
                     </div> -->
 
-                    <!--註冊 -->
-                    <div id="register-form" class="div-collapse collapse text-center " data-parent="#content-div">
-                        <form method="post" action="/SAN/register" id="sign_up_form">
-                            <div class="text-center m-auto w-75   "
-                                style="font-family:  'Arial Narrow', Arial, sans-serif; ">
-                                <input type="text" name='name' class="form-control mb-1" placeholder="名字" required />
-                                <input type="text" name='ID' class="form-control mb-1 " placeholder="ID" required />
-                                <div class="input-group mb-1">
-                                    <input type="password" name='password' class="form-control " placeholder="密碼"
-                                        required />
-                                    <div class="input-group-append">
-                                        <span class="input-group-text eyes" style="cursor: pointer;"><i
-                                                class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                        <!--註冊 -->
+                        <div id="register-form" class="text-center " style="display: none;">
+                            <form method="post" action="/SAN/register" id="sign_up_form">
+                                <div class="text-center m-auto w-100   ">
+                                    <input type="text" name='name' class="form-control mb-1" placeholder="名字"
+                                        style="border-radius: 0%;" required />
+                                    <input type="text" name='ID' class=" form-control mb-1 " placeholder="ID"
+                                        style="border-radius: 0%;" required />
+                                    <div class="input-group mb-1">
+                                        <input type="password" name='password' class=" form-control " placeholder="密碼"
+                                            style="border-radius: 0%;" required />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text eyes" style="cursor: pointer;"><i
+                                                    class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <input type="email" name='mail' class=" form-control mb-1" placeholder="E-mail"
+                                        style="border-radius: 0%;" required />
+                                    <input type="text" name='school' class=" form-control mb-1" placeholder="學校"
+                                        style="border-radius: 0%;" required />
+                                    <select type="text" name='gender' class="form-control mb-1"
+                                        style="border-radius: 0%;" required>
+                                        <option>男</option>
+                                        <option>女</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div id="verify2" style="text-align:center"></div>
+                                    </div>
+                                    <div class="col-4">
+                                        <input id="sign_up" type="submit" class=" btn btn-secondary"
+                                            style="border-radius: 0%;width: 100%;height: 100%;" />
                                     </div>
                                 </div>
-                                <input type="email" name='mail' class="form-control mb-1" placeholder="E-mail"
-                                    required />
-                                <input type="text" name='school' class="form-control mb-1" placeholder="學校" required />
-                                <select type="text" name='gender' class="form-control mb-1" required>
-                                    <option>男</option>
-                                    <option>女</option>
-                                </select>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- <div>
+                            <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
+                                data-toggle="collapse" data-target="#log-in-form" value='log-in'>
+                                登入
+                            </button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
+                                data-toggle="collapse" data-target="#register-form" value='register'>
+                                註冊
+                            </button>
+                        </div> -->
+                    <div>
+                        <br>
+                        <a class="link-primary" id="ForgetPassword">
+                            忘記密碼?
+                        </a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="link-primary" id="ReSendMail">
+                            重寄驗證信
+                        </a>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <a class="col-4" href="http://www.polsci.ncku.edu.tw/">
+                            <img src="images/d1.png" width="30px" alt="">
+                            <strong>政治學系</strong>
+                        </a>
+                        <a class="col-4" href="http://economics.ncku.edu.tw/">
+                            <img src="images/d2.png" width="30px" alt="">
+                            <strong>經濟學系</strong>
+                        </a>
+                        <a class="col-4" href="http://www.ed.ncku.edu.tw/">
+                            <img src="images/d3.png" width="30px" alt="">
+                            <strong>教育研究所</strong>
+                        </a>
+                        <a class="col-4" href="http://psychology.ncku.edu.tw/default.aspx">
+                            <img src="images/d4.png" width="30px" alt="">
+                            <strong>心理學系</strong>
+                        </a>
+                        <a class="col-4" href="http://www.law.ncku.edu.tw/">
+                            <img src="images/d5.png" width="30px" alt="">
+                            <strong>法律學系</strong>
+                        </a>
+                        <a class="col-4" href="http://www.css.ncku.edu.tw/index.asp">
+                            <img src="images/d6.png" width="30px" alt="">
+                            <strong>社會科學院</strong>
+                        </a>
+                        <div class="col-12">
+                            <hr>
+                            <div style="display: inline;">
+                                <img src="images/d6.png" width="30px" alt="">
                             </div>
-                            <div id="verify2" style="text-align:center"></div>
-                            <input id="sign_up" type="submit" class=" btn btn-secondary  mt-2" />
-                        </form>
+                            <div style="display:inline">
+                                |&nbsp;國立成功大學社會科學院
+                            </div>
+                            <br>
+                            <div style="display: inline;">
+                                <img src="images/address.png" width="30px" alt="">
+                            </div>
+                            <div style="display:inline">
+                                |&nbsp;704台灣台南市北區小東路25號
+                            </div>
+                            <br>
+                            <div style="display: inline;">
+                                <img src="images/phone1.png" width="30px" alt="">
+                            </div>
+                            <div style="display:inline">
+                                |&nbsp;06-275-7575 轉 56006
+                            </div>
+                            <br>
+                            <div style="display: inline;">
+                                <img src="images/phone2.png" width="30px" alt="">
+                            </div>
+                            <div style="display:inline">
+                                |&nbsp;06-208-0535
+                            </div>
+                            <br>
+                            <div style="display: inline;">
+                                <img src="images/email.png" width="30px" alt="">
+                            </div>
+                            <div style="display:inline">
+                                |&nbsp;z11007019@ncku.edu.tw
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
             </div>
             <!-- 介紹區 -->
-            <div id="intro-div" class="col-md-4 d-flex" style="height: 700px ">
+            <!-- <div id="intro-div" class="col-md-4 d-flex" style="height: 700px ">
                 <div class=" pt-5">
                     <h1 class=" text-center">
                         <%=title%>
@@ -166,7 +311,7 @@
                     <%-include%>
                 </div>
 
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -174,6 +319,7 @@
         $(document).ready(function () {
             //$('#sign_in_form').find('input[name == "ID"]').val(localStorage.getItem('ID'));
             //$('#sign_in_form').find('input[name == "password"]').val(localStorage.getItem('password'));
+            $('.carousel').carousel()
             $("#toManage").attr('href', location.protocol + '//' + window.location.href.split('/')[2] + '/SAN/toManageMode');
             if ('<%=result%>' != '第一次進入') {
                 alert('<%=result%>');
@@ -239,7 +385,7 @@
                 arith: 0, //算法，支持加减乘，不填为随机，仅在type=2时生效
                 width: '100%',
                 height: '30px',
-                fontSize: '50%',
+                fontSize: '100%',
                 btnId: 'sign_in',
                 ready: function () {
                     $('#sign_in_form').attr("onsubmit", "return false");
@@ -263,7 +409,7 @@
                 arith: 0, //算法，支持加减乘，不填为随机，仅在type=2时生效
                 width: '100%',
                 height: '30px',
-                fontSize: '50%',
+                fontSize: '100%',
                 btnId: 'sign_up',
                 ready: function () {
                     $('#sign_up_form').attr("onsubmit", "return false");
@@ -289,15 +435,27 @@
                     $(this).children('i').addClass("fa-eye");
                 }
             });
+            $("#login-btn").click(function () {
+                $("#login-btn").css("color", "gray");
+                $("#reigister-btn").css("color", "black");
+                $("#log-in-form").show();
+                $("#register-form").hide();
+            })
+            $("#reigister-btn").click(function () {
+                $("#reigister-btn").css("color", "gray");
+                $("#login-btn").css("color", "black");
+                $("#register-form").show();
+                $("#log-in-form").hide();
+            })
         });
     </script>
 </body>
-<footer class="m-auto">
+<!-- <footer class="m-auto">
     <h5 class="text-center">
         政治系●法律系●教育所●經濟系●心理系
         <br>
         【自發】X【互動】X【共好】
     </h5>
-</footer>
+</footer> -->
 
 </html>
