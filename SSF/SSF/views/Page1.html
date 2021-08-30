@@ -35,13 +35,13 @@
                         <img src="images/Logo.png" class="w-100" alt="">
                     </div>
                     <div class="col-9">
-                        高中教師社會科學增能平台<br>UFO Teacher Empowerment Platform
+                        <strong>高中教師社會科學增能平台</strong><br> <strong>UFO Teacher Empowerment Platform</strong>
                     </div>
                 </div>
             </a>
             <div class="navbar-brand col-2" style="display:flex;align-items: center;">
                 <a id="toManage" href="" class="d-none d-md-inline" style="color: black;">
-                    教師版面登入
+                    <strong>教師版面登入</strong>
                 </a>
             </div>
         </div>
@@ -86,10 +86,12 @@
                         <div class="col-1">
                             <img src="images/planIntro.png" width="100%">
                         </div>
-                        <div class="col-11" style="font-size: 120%;">
+                        <div class="col-11">
                             <h1>關於本計畫</h1>
-                            &nbsp;&nbsp;本計畫本國立大學對於社會應盡之責任，預計建構高等教育與高中教育社會科學資源平台，永續國家公民教育。<br>
-                            &nbsp;&nbsp;本計畫預計挹注成功大學社會科學院師資，協助高中端建立社會科學學習資料庫，陪伴高中教師進行專業諮詢，豐富課程設計、刺激議題互動探討、引發自發性學習，實踐社會科學人才紮根，以達社會共好。
+                            <div style="font-size: 150%;">
+                                本計畫本國立大學對於社會應盡之責任，預計建構高等教育與高中教育社會科學資源平台，永續國家公民教育。<br>
+                                本計畫預計挹注成功大學社會科學院師資，協助高中端建立社會科學學習資料庫，陪伴高中教師進行專業諮詢，豐富課程設計、刺激議題互動探討、引發自發性學習，實踐社會科學人才紮根，以達社會共好。
+                            </div>
                         </div>
 
                     </div>
@@ -102,10 +104,10 @@
                     <br>
                     <h3>
                         <button type="button" id="login-btn"
-                            style=" background-color: white; color: gray; border: none;">
+                            style=" background-color: white; color: black; border: none;">
                             <strong>登入</strong>
                         </button>&nbsp;&nbsp;|&nbsp;&nbsp;<button type="button" id="reigister-btn"
-                            style=" background-color: white; color: black; border: none;">
+                            style=" background-color: white; color: gray; border: none;">
                             <strong>註冊</strong>
                         </button>
                     </h3>
@@ -237,27 +239,27 @@
                     <div class="row">
                         <a class="col-4" href="http://www.polsci.ncku.edu.tw/">
                             <img src="images/d1.png" width="30px" alt="">
-                            <strong>政治學系</strong>
+                            <strong style="color: black;">政治學系</strong>
                         </a>
                         <a class="col-4" href="http://economics.ncku.edu.tw/">
                             <img src="images/d2.png" width="30px" alt="">
-                            <strong>經濟學系</strong>
+                            <strong style="color: black;">經濟學系</strong>
                         </a>
                         <a class="col-4" href="http://www.ed.ncku.edu.tw/">
                             <img src="images/d3.png" width="30px" alt="">
-                            <strong>教育研究所</strong>
+                            <strong style="color: black;">教育研究所</strong>
                         </a>
                         <a class="col-4" href="http://psychology.ncku.edu.tw/default.aspx">
                             <img src="images/d4.png" width="30px" alt="">
-                            <strong>心理學系</strong>
+                            <strong style="color: black;">心理學系</strong>
                         </a>
                         <a class="col-4" href="http://www.law.ncku.edu.tw/">
                             <img src="images/d5.png" width="30px" alt="">
-                            <strong>法律學系</strong>
+                            <strong style="color: black;">法律學系</strong>
                         </a>
                         <a class="col-4" href="http://www.css.ncku.edu.tw/index.asp">
                             <img src="images/d6.png" width="30px" alt="">
-                            <strong>社會科學院</strong>
+                            <strong style="color: black;">社會科學院</strong>
                         </a>
                         <div class="col-12">
                             <hr>
@@ -436,14 +438,14 @@
                 }
             });
             $("#login-btn").click(function () {
-                $("#login-btn").css("color", "gray");
-                $("#reigister-btn").css("color", "black");
+                $("#login-btn").css("color", "black");
+                $("#reigister-btn").css("color", "gray");
                 $("#log-in-form").show();
                 $("#register-form").hide();
             })
             $("#reigister-btn").click(function () {
-                $("#reigister-btn").css("color", "gray");
-                $("#login-btn").css("color", "black");
+                $("#reigister-btn").css("color", "black");
+                $("#login-btn").css("color", "gray");
                 $("#register-form").show();
                 $("#log-in-form").hide();
             })
