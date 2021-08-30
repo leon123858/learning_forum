@@ -7,3 +7,4 @@ pm2 kill
 Write-Host "reStart PM2 service"
 Start-Service -DisplayName  "PM2"
 Set-Location .\deploy_script
+pm2 status
