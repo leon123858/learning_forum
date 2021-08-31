@@ -21,46 +21,57 @@ function warming(res, mode) {
 ./CB
 ******************/
 router.get('/', function (req, res) {
-	MongoClient.connect(
-		GetUrl('data'),
-		{
-			useUnifiedTopology: true,
-		},
-		function (err, db) {
-			if (err) {
-				warming(res, 2);
-				throw err;
-			}
-			//console.log("index.js:connect DB!");
-			var found_database = db.db('data');
-			found_database
-				.collection('page1')
-				.find({}, { projection: { _id: 0 } })
-				.sort({ _id: 1 })
-				.toArray(function (err, found_data) {
-					if (err) {
-						warming(res, 2);
-						throw err;
-					}
-					//console.log("title>>");
-					//console.log(found_data[0]['title']);
-					//console.log("include>>");
-					//console.log(found_data[1]['include']);
-					res.render('Page1', {
-						ID: '',
-						password: '',
-						name: '',
-						mail: '',
-						school: '',
-						gender: '',
-						title: found_data[0]['title'],
-						include: found_data[1]['include'],
-						result: '第一次進入',
-					});
-					db.close();
-				});
-		}
-	);
+	// MongoClient.connect(
+	// 	GetUrl('data'),
+	// 	{
+	// 		useUnifiedTopology: true,
+	// 	},
+	// 	function (err, db) {
+	// 		if (err) {
+	// 			warming(res, 2);
+	// 			throw err;
+	// 		}
+	// 		//console.log("index.js:connect DB!");
+	// 		var found_database = db.db('data');
+	// 		found_database
+	// 			.collection('page1')
+	// 			.find({}, { projection: { _id: 0 } })
+	// 			.sort({ _id: 1 })
+	// 			.toArray(function (err, found_data) {
+	// 				if (err) {
+	// 					warming(res, 2);
+	// 					throw err;
+	// 				}
+	// 				//console.log("title>>");
+	// 				//console.log(found_data[0]['title']);
+	// 				//console.log("include>>");
+	// 				//console.log(found_data[1]['include']);
+	// 				res.render('Page1', {
+	// 					ID: '',
+	// 					password: '',
+	// 					name: '',
+	// 					mail: '',
+	// 					school: '',
+	// 					gender: '',
+	// 					title: found_data[0]['title'],
+	// 					include: found_data[1]['include'],
+	// 					result: '第一次進入',
+	// 				});
+	// 				db.close();
+	// 			});
+	// 	}
+	//);
+	res.render('Page1', {
+		ID: '',
+		password: '',
+		name: '',
+		mail: '',
+		school: '',
+		gender: '',
+		title: 'title',
+		include: 'include',
+		result: '第一次進入',
+	});
 });
 //*/
 
