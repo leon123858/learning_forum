@@ -2,6 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
+
 <head>
     <title>選擇看板</title>
     <meta charset="utf-8">
@@ -10,66 +11,88 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
 </head>
-<!-- Header title -->
-<header>
-    <div name="Title" style="font-family: 'Microsoft JhengHei'" class="jumbotron  mb-0 ">
-        <button class="btn btn-outline-dark  float-left" onclick="history.back()">上一頁</button>
-        <div class="text-center  align-self-center">
-            <h1>議題討論區</h1>
-        </div>
+<style>
+    .leftTextDiv {
+        width: 100%;
+       
+        height: 45px;
+        line-height: 45px;
+    }
+
+    .blueDivColor {
+        border: none;
+        background-color: rgb(194, 243, 255);
+    }
+</style>
+<header style="font-family: 'Yu Gothic';">
+    <div style="background-color:#CCEEFF; width: 100%;">
+        &nbsp;&nbsp;
     </div>
-    <!-- <div name="Title" class="jumbotron text-center  pb-4 mb-0" style="font-family: 'Roboto Slab', cursive;">
-        <h1>公有看板區</h1>
-    </div> -->
+    <nav class="navbar navbar-light" style="background-color: white;">
+        <div id="headerDiv" class="row pl-2">
+            <!-- need to discuss -->
+            <div class="navbar-brand col-md-1" style="display:flex;align-items: center;">
+                <a href="http://127.0.0.1:1337/SAN/sign_in">
+                    <button class="btn btn-outline-secondary d-none d-md-block" style="border-radius: 0%;">
+                        <strong>回首頁</strong>
+                    </button>
+                </a>
+
+            </div>
+            <h2 class="my-auto col-md-5 text-center" style="font-weight: bold;">所有看板區</h2>
+        </div>
+    </nav>
+    <hr>
 </header>
 
 <body style="font-family: 'Microsoft JhengHei', cursive;">
     <div class=" container-fluid">
-
         <div class="row" style="height: 800px;">
             <!-- 左邊的欄位 -->
-            <div class="col-md-2" style="background-color:rgb(243, 243, 243);">
-                <div class="mt-4  d-flex flex-column">
-                    <!-- SHOW ALL -->
+            <div class="col-md-3">
+                <div class="d-flex flex-column">
+                    <!-- 全部顯示 -->
                     <div class="p-1">
-                        <button class="btn btn-primary  btn-block " value="all">全部顯示</button>
+                        <button class="leftTextDiv blueDivColor" value="all">
+                            <h4 class="my-auto" style="font-weight: bold;">全部看板顯示</h4>
+                        </button>
                     </div>
                     <!-- 關鍵搜尋 -->
-                    <div class="w-100  p-1">
+                    <div class="  p-1">
                         <!-- 延展button -->
-                        <button class="btn btn-primary dropdown-toggle btn-block " type="button" id="dropdownMenuButton"
+                        <button class="leftTextDiv blueDivColor" type="button" id="dropdownMenuButton"
                             data-toggle="collapse" data-target="#keywordpanel" aria-haspopup="true"
                             aria-expanded="false">
-                            關鍵字搜尋
+                            <h4 class="my-auto" style="font-weight: bold;">看板關鍵字搜尋</h4>
                         </button>
 
                         <div class="collapse multi-collapse" id="keywordpanel">
                             <!-- 自己輸入關鍵字 -->
                             <div class="input-group pb-1 pt-1">
-                                <div class="input-group-prepend">
+                                <input id="self-search" type="text" class="form-control" placeholder="輸入關鍵字"
+                                    aria-label="specific">
+                                <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <input id="self-search" type="text" class="form-control" placeholder="輸入關鍵字"
-                                    aria-label="specific">
                             </div>
                             <!-- 常見標籤 -->
-                            <label class=" list-group-item-dark text-center w-100 m-0 p-2">
-                                <strong>常見標籤</strong>
-                            </label>
+                            <h4 class="leftTextDiv blueDivColor text-center my-auto" style="font-weight: bold;">常見標籤
+                            </h4>
                             <div class="list-group">
                                 <%for(var key in keywords){%>
-                                    <a data-toggle="list" role="tab" class="list-group-item list-group-item-action clearfix list-group-item-heading
-                                 text-center p-1" id='keywords<%=keywords[key]%>' style="cursor: pointer;">
-                                        <%=keywords[key]%>
-                                    </a>
-                                    <%}%>
+                                <button data-toggle="list" role="tab"
+                                    class="leftTextDiv list-group-item list-group-item-action  clearfix list-group-item-heading"
+                                    id='keywords<%=keywords[key]%>' style="cursor: pointer;">
+                                    <h4 class="my-auto text-center" style="font-weight: bold;"> <%=keywords[key]%></h4>
+                                </button>
+                                <%}%>
                             </div>
                         </div>
                     </div>
@@ -77,115 +100,136 @@
                 </div>
             </div>
             <!-- 列表區域 -->
-            <div class="col-md-6  pt-1">
-
-                <div class="list-group  flex-fill" id="list-tab" role="tablist" style=" height:500px; overflow-y:auto">
-                    <h3 class="text-center m-auto" style="display: none;">查無相關列表</h3>
+            <div class="col-md-9  pt-1">
+                <h3 style="font-weight: bold;">看板</h3>
+                <hr>
+                <div id="list-tab" role="tablist" style=" height:500px; overflow-y:auto">
+                    <h3 class="text-center m-auto" style="display: none;font-weight:bold">查無相關列表</h3>
                     <%for(var i=0;i<boards.length;i++){%>
-                        <a class="list-group-item list-group-item-action list-group-item-success"
-                            id="list-<%=boards[i]['board_ID']%>" data-toggle="list" role="tab"
-                            text-tab="<%=boards[i]['tab']%>" text-title="<%=boards[i]['title']%>"
-                            style="display: block">
-                            <strong class=" text-center">
-                                <%=boards[i]['tab']%>:
-                                    <%=boards[i]['title']%>
-                            </strong>
-                            <!--跳轉按鈕-->
-                            <input type="submit" class="btn btn-danger  float-right" name="<%=boards[i]['board_ID']%>"
-                                id='submit-btn' value='進入'>
-                            <form method="POST" action="/JB/to_public_board" id="<%=boards[i]['board_ID']%>"
-                                name="<%=boards[i]['tab']%>">
-                                <input type='text' name='ID' value='<%=ID%>' style="display: none;">
-                                <input type='text' name='board_ID' value="<%=boards[i]['board_ID']%>"
-                                    style="display: none;">
-                                <input type='text' name='password' value="<%=password%>" style="display: none;">
-                            </form>
-                        </a>
-                        <%}%>
+                                <div id="<%=boards[i]['tab']%>:<%=boards[i]['title']%>" tab="<%=boards[i]['tab']%>"
+                                    class="boardList" title="<%=boards[i]['title']%>">
+                                    <div class=" container">
+                                        <div class="row w-100">
+                                            <h4 class="col-md-9 col-sm-5 my-auto p-2" style="font-weight: bold;text-align:center">
+                                                <%=boards[i]['tab']%>:
+                                                <%=boards[i]['title']%>
+                                            </h4>
+                                            <div class="col-md-3 col-sm-3 d-inline-flex justify-content-center p-2">
+                                                <button style="border-radius: 0%; font-weight:bold;"
+                                                    class=" btn btn-outline-dark btn-lg"
+                                                    value="<%-boards[i]['include']%>" data-toggle="modal"
+                                                    name="<%=boards[i]['board_ID']%>"
+                                                    onclick="setInformModal($(this).siblings('button')[0],this.getAttribute('value'))">
+                                                    看板資訊
+                                                </button>
+                                                <!--跳轉按鈕-->
+                                                <button style="border-radius: 0%; font-weight:bold;"
+                                                    class=" ml-2 btn btn-outline-success btn-lg"
+                                                    name="<%=boards[i]['board_ID']%>"
+                                                    onclick="$(this).siblings('form')[0].submit()">
+                                                    進入
+                                                </button>
+                                                <form method="POST" action="/JB/to_public_board"
+                                                    id="<%=boards[i]['board_ID']%>" name="<%=boards[i]['tab']%>">
+                                                    <input type='text' name='ID' value='<%=ID%>' style="display: none;">
+                                                    <input type='text' name='board_ID'
+                                                        value="<%=boards[i]['board_ID']%>" style="display: none;">
+                                                    <input type='text' name='password' value="<%=password%>"
+                                                        style="display: none;">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <%}%>          
                 </div>
             </div>
-            <!-- 介紹面板 -->
-            <div class="col-md-4 h-100 pt-2" style="background-color:rgb(255, 247, 213);">
-                <div id="first_introduce">
-                    <p style=" text-align: justify;text-justify: inter-word;">
-                        <%-introduce%>
-                    </p>
-                </div>
-                <div class=" tab-content" id="nav-tabContent">
-                    <%for(var i=0;i<boards.length;i++){%>
-                        <div class="tab-pane fade " id="panel-<%=boards[i]['board_ID']%>" role="tabpanel"
-                            aria-labelledby="list-<%=boards[i]['board_ID']%>">
-                            <p style=" text-align: justify;text-justify: inter-word;">
-                                <%-boards[i]['include']%>
-                            </p>
-                        </div>
-                        <%}%>
-                </div>
-            </div>
+            <!-- Button trigger modal -->
         </div>
+  <!--看版資訊Modal -->
+  <div class="modal fade" id="introduceModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header p-2">
+            <h3 class="my-auto" style="display: inline; font-weight:bold ">
+                <img src="/images/resume.png" style="display: inline;width: 30px;" alt="">
+                看板資訊
+            </h3>
+        </div>
+        <div class="modal-body" id="test">
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button"  style="border-radius: 0%; font-weight:bold;"
+          class=" btn btn-outline-secondary btn-lg" data-dismiss="modal">
+           關閉
+        </button>
+          <button  type="button"  style="border-radius: 0%; font-weight:bold;"
+          class=" btn btn-outline-success btn-lg" onclick="submitButton.click()">
+           進入
+        </button>
+        </div>
+      </div>
     </div>
+
+
 
     <script>
         var lock = false;
-        var before_list = null;
         var now_tag = 'all';
+        var submitButton=null;
         // 解除tab鎖定
         function unlock_List() {
             lock = false;
-            $('#list-tab >h3').hide();
-            $("#first_introduce").show();
-            $('.list-group > a').removeClass('show active');
-            $('.list-group > a').attr('style', 'display: block');
-            if (before_list != null) {
-                $('#panel-' + before_list.attr('id').substring(5)).removeClass('show active');
-                before_list = null;
-            }
-            // $('#nav-tabContent').children().removeClass('show active');
+            $('.boardList').show()
             $('#self-search').val('');
+            $('#list-tab>h3').hide();
+            $('.list-group-item-heading').removeClass("active")
             now_tag = 'all';
         }
         $('button[value = "all"]').click(unlock_List);
-        //關鍵搜尋點選
-        $('#self-search').click(function () {
-            //  $('.list-group-item-heading').removeClass('show active');//常見關鍵字取消
-        });
-
-        //點選列表
-        $('#list-tab >a').hover(function () {
-            $("#first_introduce").hide();
-            if (lock == false) {
-                if (before_list != null) {
-                    $(before_list).removeClass('active');
-                    $('#panel-' + before_list.attr('id').substring(5)).removeClass('show active');
-                }
-                before_list = $(this);
-                $('#panel-' + before_list.attr('id').substring(5)).addClass('show active');
-            }
-        });
-
-        $('#list-tab >a').click(function () {
-            lock = true;
-        });
-
-        //關鍵搜尋打字--select title
+        //
+        /*
+        關鍵搜尋打字--select title
+        若有選擇tag title 會在tag過濾後繼續做搜索
+        */
         $("#self-search").on('keyup', debounce(function (e) {
-            if ($(this).val() == "") {
+            const boardList=document.getElementsByClassName("boardList");
+            let haveList=false;
+           /* if ($(this).val() == "") {
                 select_Topic('text-tab', now_tag);
             } else {
                 select_Topic('text-title', $(this).val());
+            }*/        
+            for(i=0;i<boardList.length;++i){
+                const titleName =boardList[i].getAttribute("title");       
+                if(titleName.includes($(this).val()) && boardList[i].style.display!="none"){
+                    haveList=true;
+                    boardList[i].style.display= "block";
+                }else{
+                    boardList[i].style.display= "none";
+                }
             }
+            haveList? $('#list-tab>h3').hide(): $('#list-tab>h3').show();
         }));
         //常見標籤搜尋--select tab
         $('.list-group-item-heading').click(debounce(function () {
-            $("#first_introduce").show();
             $('#self-search').val('');
-            if (before_list != null) {
-                $(before_list).removeClass('active');
-                $('#panel-' + before_list.attr('id').substring(5)).removeClass('show active');
-                before_list = null;
+            let haveList=false;
+            const boardList=document.getElementsByClassName("boardList")
+            for(i=0;i<boardList.length;++i){
+                const tabName =boardList[i].getAttribute("tab");
+                
+                if(tabName.includes($(this).text())){
+                    haveList=true;
+                    boardList[i].style.display= "block";
+                }else{
+                    boardList[i].style.display= "none";
+                }
             }
             now_tag = $(this).text();
-            select_Topic('text-tab', $(this).text());
+            haveList? $('#list-tab>h3').hide(): $('#list-tab>h3').show();
         }));
         //跳轉頁面
         $("input[type = 'submit']").click(function () {
@@ -206,11 +250,17 @@
                 }, 500);	//0.5秒延遲
             }
         }
+        function setInformModal(button,text){
+            submitButton=button;
+            console.log(submitButton)
+            $('.modal-body').text(text)
+            $('#introduceModal').modal('show')
+        }
         /*select_Topic()
         *   argument:mode,(text-title,text-tab)
         *   kind,(text for search)
         */
-        function select_Topic(mode, kind) {
+       /* function select_Topic(mode, kind) {
             $('#list-tab >h3').hide();
             if (kind == 'all') {
                 unlock_List();
@@ -222,8 +272,6 @@
             var tab_list = $('#list-tab').children('a');
             var length = tab_list.length;
             var i = length;
-            // console.log(i);
-            // console.log(tab_list[0].getAttribute('style'));
             function appenditems() {
                 for (j = 0; i >= 0, j < 100; --i, ++j) {
                     if (tab_list[i] != undefined) {
@@ -244,33 +292,11 @@
                 }
             }
             appenditems();
-        }
-        // function select_Topic(mode, kind) {
-        //     let hasTab=false;
-        //     kind = kind.toLowerCase();
-        //     var tab_list = $('#list-tab').children('a');
-        //     for (var i = 0; i < tab_list.length; ++i) {
-        //         let textTitle = tab_list[i].getAttribute("text-title").toString().toLowerCase();
-        //         let textTab = tab_list[i].getAttribute("text-tab").toString().toLowerCase(); //search tab
-        //         if (mode == "text-tab") {
-        //             if (textTab.includes(kind)) {
-        //                 tab_list[i].setAttribute('style', 'display: block');
-        //             } else {
-        //                 tab_list[i].setAttribute('style', 'display: none');
-        //             }
-        //         } else if (mode == "text-title") {
-        //         if (textTitle.includes(kind)) {
-        //             hasTab=true;
-        //             tab_list[i].setAttribute('style', 'display: block');
-        //         } else {
-        //             tab_list[i].setAttribute('style', 'display: none');
-        //         }
-        //         // }
-        //         hasTab?$('#list-tab >h3').hide():$('#list-tab >h3').show();
-        //     }
-        //  }
-        // }
+        }*/
+        //set Modal introduce Text
+       
     </script>
+    <script src="/javascripts/component.js"></script>
 </body>
 
 </html>
