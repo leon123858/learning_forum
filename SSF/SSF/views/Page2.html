@@ -10,10 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+
     <title>版面頁面</title>
 </head>
 <style>
@@ -27,30 +28,38 @@
         color: transparent;
         text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
+
+    .imageDiv {
+        height: 60px;
+        border: 0;
+    }
+
+    .strongP {
+        font-size: 18px;
+        font-weight: bold;
+        color: rgb(107, 107, 107);
+        text-align: left;
+    }
+
+    h3 {
+        font-weight: bold;
+    }
 </style>
 <header style="font-family: 'Yu Gothic';">
     <div style="background-color:#CCEEFF; width: 100%;">
         &nbsp;&nbsp;
     </div>
     <nav class="navbar navbar-light" style="background-color: white;">
-        <div class="row">
-            <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse"
-                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand col-6" href="http://140.116.183.54:1337/">
-                <div class="row">
-                    <div class="d-none d-md-inline col-md-2">
-                        <img src="../images/Logo.png" class="w-100" alt="">
-                    </div>
-                    <div class="col-9">
-                        高中教師社會科學增能平台<br>UFO Teacher Empowerment Platform
-                    </div>
-                </div>
-            </a>
-            <div class="navbar-brand col-2" style="display:flex;align-items: center;">
-                <button id="personal-information" class="btn btn-outline-secondary d-none d-md-block"
+        <div id="headerDiv" class="row pl-2">
+            <div class="d-md-none col-sm-2">
+                <button class="navbar-toggler " type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-brand col-md-4 col-sm-4 my-auto">
+                <button id="personal-information" class="btn btn-outline-secondary d-none  d-md-block"
                     style="border-radius: 0%;">
                     <strong>我的會員資料</strong>
                 </button>
@@ -62,178 +71,210 @@
 <!-- onClick="handleClick(event)" 暫時刪除-->
 
 <body id="main" style="font-family: 'Microsoft JhengHei', cursive;">
-    <div class="container-fluid " style="width: 98%;">
+    <div class="container-fluid ">
         <div class="row">
-            <div class="collapse d-md-none collapsing" id="navbarToggleExternalContent">
-                <div class="bg-light p-4">
-                    <div class=" mb-5">
-                        <div>
-                            <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block"
-                                data-toggle="collapse" data-target="#lover" value='introduction'>
-                                我的最愛看板
-                            </button>
+            <!-- NavBar for Phone -->
+            <div class="collapse d-md-none collapsing col-sm-12" id="navbarToggleExternalContent" >
+                <div class=" mb-5 p-2">
+                    <div class="row " style="cursor: pointer;" onclick="$('#navbarToggleExternalContent').removeClass('show')">
+                        <div class="btn btn-outline-info btn-lg mb-1 btn-block imageDiv" data-toggle="collapse"
+                            data-target="#lover" value='introduction'
+                            style="background:center / contain no-repeat url(/images/favoriteButton.png);">
                         </div>
-                        <div>
-                            <button type="button" class="btn btn-outline-info btn-lg btn-block mb-1"
-                                data-toggle="collapse" data-target="#notice" value='register'>
-                                看板訊息通知
-                            </button>
+                        <p class="strongP text-center w-100">
+                            將喜歡的看板納入我的最愛，方便您快速找尋看板進入看板
+                        </p>
+                    </div>
+                    <div class="row " style="cursor: pointer;" onclick="$('#navbarToggleExternalContent').removeClass('show')">
+                        <div type="button" class="btn btn-outline-info btn-lg btn-block mb-1 imageDiv"
+                            data-toggle="collapse" data-target="#notice" value='register'
+                            style="background:center / contain no-repeat url(/images/notifyButton.png);">
                         </div>
+                        <p class="strongP text-center w-100">
+                            您曾留言，評論，分享過的議題，若有人在下方回覆，點選我就能看得到最新通知。
+                        </p>
+                    </div>
+                    <div class="row" style="cursor: pointer;" >
+                        <div class="col-12"  onclick="$(this).children('form').submit()">
+                            <form method="POST" action="/CB/department/ALL">
+                                <input type="text" name="ID" value="<%= ID %>" style="display: none;">
+                                <input type="text" name="password" value="<%=information['password']%>"
+                                    style="display: none;">
+                                <div class="mb-1 imageDiv"
+                                    style="background:center / contain no-repeat url(/images/allButton.png);">
+                                </div>
+                                <p class="strongP text-center w-100">
+                                    所有公開看板議題都能從我這裡找到，一起來探索您有興趣的議題看板。
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row " style="cursor: pointer;">
+                        <div class="col-12" onclick="$(this).children('form').submit()">
+                            <form method="POST" action="/CB/department/YT">
+                                <input type="text" name="ID" value="<%= ID %>" style="display: none;">
+                                <input type="text" name="password" value="<%=information['password']%>"
+                                    style="display: none;">
+                                <div class="mb-1 imageDiv"
+                                    style="background:center / contain no-repeat url(/images/teacherButton.png);">
+                                </div>
+                                <p class="strongP text-center w-100">
+                                    輸入老師的看板版號，就能快速找到特定老師開設的看版，若有設定密碼請務必問老師。
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 左Side  -->
+            <div class="col-md-3 text-center d-none d-md-inline">
+                <div class=" mb-5 pl-2">
+                    <div class="row pl-2" style="cursor: pointer;">
+                        <div class="btn btn-outline-info btn-lg mb-1 btn-block imageDiv" data-toggle="collapse"
+                            data-target="#lover" value='introduction'
+                            style="background:left / contain no-repeat url(/images/favoriteButton.png);">
+                        </div>
+                        <p class="strongP">
+                            將喜歡的看板納入我的最愛，方便您快速找尋看板進入看板
+                        </p>
+                    </div>
+                    <div class="row pl-2" style="cursor: pointer;">
+                        <div type="button" class="btn btn-outline-info btn-lg btn-block mb-1 imageDiv"
+                            data-toggle="collapse" data-target="#notice" value='register'
+                            style="background:left / contain no-repeat url(/images/notifyButton.png);">
+                        </div>
+                        <p class="strongP">
+                            您曾留言，評論，分享過的議題，若有人在下方回覆，點選我就能看得到最新通知。
+                        </p>
+                    </div>
+                    <div class="row pl-2" style="cursor: pointer;" onclick="$(this).children('form').submit()">
                         <form method="POST" action="/CB/department/ALL">
                             <input type="text" name="ID" value="<%= ID %>" style="display: none;">
                             <input type="text" name="password" value="<%=information['password']%>"
                                 style="display: none;">
-                            <input type="submit" class="btn btn-info btn-lg mb-1 btn-block" value="進入所有看板">
+                            <div class="mb-1 imageDiv"
+                                style="background:left / contain no-repeat url(/images/allButton.png);">
+                            </div>
+                            <p class="strongP">
+                                所有公開看板議題都能從我這裡找到，一起來探索您有興趣的議題看板。
+                            </p>
                         </form>
+                    </div>
+                    <div class="row pl-2" style="cursor: pointer;" onclick="$(this).children('form').submit()">
                         <form method="POST" action="/CB/department/YT">
                             <input type="text" name="ID" value="<%= ID %>" style="display: none;">
                             <input type="text" name="password" value="<%=information['password']%>"
                                 style="display: none;">
-                            <input type="submit" class="btn btn-outline-info btn-lg mb-1 btn-block" value="搜尋老師看板">
+                            <div class="mb-1 imageDiv"
+                                style="background:left / contain no-repeat url(/images/teacherButton.png);">
+                            </div>
+                            <p class="strongP">
+                                輸入老師的看板版號，就能快速找到特定老師開設的看版，若有設定密碼請務必問老師。
+                            </p>
                         </form>
                     </div>
                 </div>
             </div>
-            <!-- 中間的版面 -->
-            <div class="col-md-3 text-center d-none d-md-inline">
-                <div class=" mb-5">
-                    <div>
-                        <button type="button" class="btn btn-outline-info btn-lg mb-1 btn-block" data-toggle="collapse"
-                            data-target="#lover" value='introduction'>
-                            我的最愛看板
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-info btn-lg btn-block mb-1" data-toggle="collapse"
-                            data-target="#notice" value='register'>
-                            看板訊息通知
-                        </button>
-                    </div>
-                    <form method="POST" action="/CB/department/ALL">
-                        <input type="text" name="ID" value="<%= ID %>" style="display: none;">
-                        <input type="text" name="password" value="<%=information['password']%>" style="display: none;">
-                        <input type="submit" class="btn btn-info btn-lg mb-1 btn-block" value="進入所有看板">
-                    </form>
-                    <form method="POST" action="/CB/department/YT">
-                        <input type="text" name="ID" value="<%= ID %>" style="display: none;">
-                        <input type="text" name="password" value="<%=information['password']%>" style="display: none;">
-                        <input type="submit" class="btn btn-outline-info btn-lg mb-1 btn-block" value="搜尋老師看板">
-                    </form>
-                </div>
-            </div>
 
             <!-- 右邊的版面 -->
-            <div id="content-div" class="col-md-7 align-self-center mt-2">
+            <div id="content-div" class="col-md-9 col-sm-12">
                 <!-- my favorite -->
                 <div id=lover class="div-collapse collapse " data-parent="#content-div">
                     <h3>我的最愛看板</h3>
                     <hr>
                     <%for(var key in lover){%>
-                        <% var l_inform=key.split('_') ;%>
-                            <div id="<%-key%>" class="container">
-                                <div class="row w-100 p-1 row-cols-2">
-                                    <!-- english to chinese -->
-                                    <% if(l_inform[0]==='private' ){%>
-                                        <span class="col-md-1 col-sm-2">
-                                            <h3 style="color: gray;">私</h3>
-                                        </span>
-                                        <%}else if(l_inform[0]==='public' ){%>
-                                            <span class="col-md-1 col-sm-2">
-                                                <h3>公</h3>
-                                            </span>
-                                            <%}%>
-
-                                                <span class="col-md-8 col-sm-2" style="text-align: center;"><br>
-                                                    <strong>
-                                                        <%=lover[key]%>
-                                                    </strong>
-                                                </span>
-
-                                                <div class="col-md-2 col-sm-4 d-inline-flex ">
-                                                    <input style="border-radius: 0%;" type=button value=進入版面
-                                                        class="ml-2 btn btn-outline-secondary"
-                                                        onclick="change_Page('<%=key%>','lover')" />
-                                                    <input style="border-radius: 0%;" type=button value=刪除
-                                                        class="ml-2 btn btn-outline-danger "
-                                                        onclick="delete_List('<%-key%>', 'lover')" />
-                                                    <form id="lover<%=key%>" method="POST"
-                                                        action="/JB/to_<%= l_inform[0] %>_board"
-                                                        style="margin: 10px; display: none;">
-                                                        <% if(l_inform[0]==='private' ){%>
-                                                            <input type="text" id="pw-lover<%=key%>"
-                                                                name="board_password" />
-                                                            <input type="submit" value="確認" />
-                                                            <%}%>
-                                                                <input name='ID' value="<%= ID %>" />
-                                                                <input name='type' value="<%= l_inform[0] %>" />
-                                                                <input name='board_ID'
-                                                                    value="<%= l_inform[0] + '_' + l_inform[1]%>" />
-                                                                <input name="password"
-                                                                    value="<%=information['password']%>" />
-                                                    </form>
-                                                </div>
-                                </div>
-                            </div>
-                            <hr>
+                    <% var l_inform=key.split('_') ;%>
+                    <div id="<%-key%>" class="container">
+                        <div class="row ">
+                            <!-- english to chinese -->
+                            <% if(l_inform[0]==='private' ){%>
+                            <h4 class="col-md-1 col-sm-12 my-auto p-2" style="color: gray;font-weight:bold">私</h4>
+                            <%}else if(l_inform[0]==='public' ){%>
+                            <h4 class="col-md-1 ol-sm-12 my-auto p-2" style="font-weight:bold">公</h4>
                             <%}%>
+
+                            <h5 class="col-md-8 ol-sm-12 my-auto p-2" style="text-align: center;font-weight:bold">
+                                <%=lover[key]%>
+                            </h5>
+
+                            <div class="col-md-3 ol-sm-12 d-inline-flex  justify-content-center p-2">
+                                <button style="border-radius: 0%; font-weight:bold;"
+                                    class=" btn btn-outline-dark btn-lg" onclick="change_Page('<%=key%>','lover')">
+                                    進入版面
+                                </button>
+                                <button style="border-radius: 0%; font-weight:bold;"
+                                    class="ml-2 btn btn-outline-danger btn-lg"
+                                    onclick="delete_List('<%-key%>', 'lover')">
+                                    刪除
+                                </button>
+                                <form id="lover<%=key%>" method="POST" action="/JB/to_<%= l_inform[0] %>_board"
+                                    style="margin: 10px; display: none;">
+                                    <% if(l_inform[0]==='private' ){%>
+                                    <input type="text" id="pw-lover<%=key%>" name="board_password" />
+                                    <input type="submit" value="確認" />
+                                    <%}%>
+                                                                <input name='ID' value="<%= ID %>" />
+                                    <input name='type' value="<%= l_inform[0] %>" />
+                                    <input name='board_ID' value="<%= l_inform[0] + '_' + l_inform[1]%>" />
+                                    <input name="password" value="<%=information['password']%>" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <%}%>
                 </div>
                 <!-- inform -->
                 <div id=notice class="div-collapse collapse " data-parent="#content-div">
                     <h3>看板訊息通知</h3>
                     <hr>
                     <%for(var key in notice){%>
-                        <% var n_inform=key.split('_') ;%>
+                    <% var n_inform=key.split('_') ;%>
 
-                            <div id="<%-key%>" class=" container">
-                                <div class="row w-100 row-cols-3  pb-1">
-                                    <!-- english to chinese -->
-                                    <% if(n_inform[0]==='private' ){%>
-                                        <span class="col-md-1 col-sm-2" style="padding-top: 10px;">
-                                            <h3 style="color: gray;">私</h3>
-                                        </span>
-                                        <%}else if(n_inform[0]==='public' ){%>
-                                            <span class="col-md-1 col-sm-2" style="padding-top: 10px;">
-                                                <h3>公</h3>
-                                            </span>
-                                            <%}%>
-                                                <span class="col-md-5 col-sm-1" style="text-align: center;">
-                                                    <br><strong>
-                                                        <%= notice[key]%>
-                                                    </strong>
-                                                </span>
-                                                <span class="col-md-3 col-sm-2"
-                                                    style="text-align: center;"><b>貼文編號</b><br>
-                                                    <%= n_inform[2] %>
-                                                </span>
-                                                <div class="col-md-2 col-sm-3 d-inline-flex ">
-                                                    <input type=button value=進入版面
-                                                        class="ml-2 btn btn-outline-secondary <%= n_inform[0] %>"
-                                                        onclick="change_Page('<%=key%>','notice')"
-                                                        style="border-radius: 0%;" />
-                                                    <input style=border-radius:0% type=button value=刪除
-                                                        class="ml-2 btn btn-outline-danger"
-                                                        onclick="delete_List('<%-key%>','notice')" />
-
-                                                    <form id="notice<%=key%>" method="POST"
-                                                        action="/JB/to_<%=n_inform[0]%>_board" style="display:none">
-                                                        <% if(n_inform[0]==='private' ){%>
-                                                            <input type="text" id="pw-notice<%=key%>"
-                                                                name="board_password" />
-                                                            <input type="submit" value="確認" />
-                                                            <%}%>
-                                                                <input name='ID' value="<%= ID %>" />
-                                                                <input name='type' value='<%= n_inform[0] %>' />
-                                                                <input name='board_ID'
-                                                                    value='<%= n_inform[0] + "_" + n_inform[1]%>' />
-                                                                <input name='place' value='<%= n_inform[2] %>' />
-                                                                <input name="password"
-                                                                    value="<%=information['password']%>" />
-                                                    </form>
-                                                </div>
-                                </div>
-                            </div>
-                            <hr>
+                    <div id="<%-key%>" class=" container">
+                        <div class="row w-100  pb-1">
+                            <!-- english to chinese -->
+                            <% if(n_inform[0]==='private' ){%>
+                            <h4 class="col-md-1 col-sm-12 my-auto p-2" style="color: gray;font-weight:bold">私</h4>
+                            <%}else if(n_inform[0]==='public' ){%>
+                            <h4 class="col-md-1 col-sm-12 my-auto p-2" style="font-weight:bold">公</h4>
                             <%}%>
+                            <h5 class="col-md-5 col-sm-12 my-auto p-2" style="text-align: center;font-weight:bold">
+                                <%= notice[key]%>
+                            </h5>
+                            <p class="col-md-3 col-sm-12 my-auto p-2" style="text-align: center;font-weight:bold;">
+                                貼文編號
+                                <br>
+                                <%= n_inform[2] %>
+                            </p>
+                            <div class="col-md-3 col-sm-12 d-inline-flex justify-content-center p-2">
+                                <button style="border-radius: 0%; font-weight:bold;"
+                                    class=" btn btn-outline-dark btn-lg" onclick="change_Page('<%=key%>','notice')">
+                                    進入版面
+                                </button>
+                                <button style="border-radius: 0%; font-weight:bold;"
+                                    class="ml-2 btn btn-outline-danger btn-lg"
+                                    onclick="delete_List('<%-key%>','notice')">
+                                    刪除
+                                </button>
+                                <form id="notice<%=key%>" method="POST" action="/JB/to_<%=n_inform[0]%>_board"
+                                    style="display:none">
+                                    <% if(n_inform[0]==='private' ){%>
+                                    <input type="text" id="pw-notice<%=key%>" name="board_password" />
+                                    <input type="submit" value="確認" />
+                                    <%}%>
+                                                                <input name='ID' value="<%= ID %>" />
+                                    <input name='type' value='<%= n_inform[0] %>' />
+                                    <input name='board_ID' value='<%= n_inform[0] + "_" + n_inform[1]%>' />
+                                    <input name='place' value='<%= n_inform[2] %>' />
+                                    <input name="password" value="<%=information['password']%>" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -244,102 +285,105 @@
                     <!-- Modal body -->
                     <div class="modal-body ">
                         <div class="w-100">
-                            <div>
-                                <img src="../images/resume.png" style="display: inline;width: 30px;" alt="">
-                                <h3 style="display: inline;">我的會員資料</h3>
-                                <hr>
-                                <h4>帳號 | <%=information['ID']%>
-                                </h4>
-                                <h4>姓名 | <%=information['name']%>
-                                </h4>
-                                <h4 style="display: none;">密碼 : <span class="mosiac">
-                                        <%=information['password']%>
-                                    </span><small style="color:gray">(反白可以看到密碼)</small></h4>
-                                <h4>學校 | <%=information['school']%>
-                                </h4>
-                                <h4>性別 | <%=information['gender']%>
-                                </h4>
-                                <h4>Mail | <%=information['mail']%>
-                                </h4>
+                            <div class="modal-header p-2">
+                                <h3 class="my-auto" style="display: inline; font-weight:bold ">
+                                    <img src="/images/resume.png" style="display: inline;width: 30px;" alt="">
+                                    我的會員資料
+                                </h3>
                             </div>
-                            <div>
+                <div class="mt-3">
+                        <h4>帳號 | <%=information['ID']%>
+                    </h4>
+                    <h4>姓名 | <%=information['name']%>
+                    </h4>
+                    <h4 style="display: none;">密碼 : <span class="mosiac">
+                            <%=information['password']%>
+                        </span><small style="color:gray">(反白可以看到密碼)</small></h4>
+                    <h4>學校 | <%=information['school']%>
+                    </h4>
+                    <h4>性別 | <%=information['gender']%>
+                    </h4>
+                    <h4>Mail | <%=information['mail']%>
+                    </h4>
+                </div>
+                <div>
 
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-secondary btn w-100 mb-1" data-toggle="collapse"
-                                    data-target="#inform" value='change'>
-                                    更改資訊 <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                            <div id=inform class="div-collapse collapse input-group ">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        類別
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" value="name">姓名</button>
-                                        <button class="dropdown-item" value="password">密碼</button>
-                                        <button class="dropdown-item" value="school">學校</button>
-                                        <button class="dropdown-item" value="gender">性別</button>
-                                        <button class="dropdown-item" value="mail">e-mail</button>
-                                    </div>
-                                </div>
-                                <input id="change-input" type="text" class="form-control"
-                                    aria-label="Text input with dropdown button">
-                                <div class="input-group-append">
-                                    <!-- 更改信息區域 -->
-                                    <form id="change-form" method="POST" action="/SAN/ChangeMe" style="display: none;">
-                                        <input name="ID" value="<%=information['ID']%>" />
-                                        <input name="password" value="<%=information['password']%>" />
-                                        <input name="type" />
-                                        <input name="include" />
-                                    </form>
-                                    <button class="btn btn-success" type="button">輸入</button>
-                                </div>
-                            </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-secondary btn w-100 mb-1" data-toggle="collapse"
+                        data-target="#inform" value='change'>
+                        更改資訊 <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div id=inform class="div-collapse collapse input-group ">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            類別
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" value="name">姓名</button>
+                            <button class="dropdown-item" value="password">密碼</button>
+                            <button class="dropdown-item" value="school">學校</button>
+                            <button class="dropdown-item" value="gender">性別</button>
+                            <button class="dropdown-item" value="mail">e-mail</button>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">關閉</button>
+                    <input id="change-input" type="text" class="form-control"
+                        aria-label="Text input with dropdown button">
+                    <div class="input-group-append">
+                        <!-- 更改信息區域 -->
+                        <form id="change-form" method="POST" action="/SAN/ChangeMe" style="display: none;">
+                            <input name="ID" value="<%=information['ID']%>" />
+                            <input name="password" value="<%=information['password']%>" />
+                            <input name="type" />
+                            <input name="include" />
+                        </form>
+                        <button class="btn btn-success" type="button">輸入</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!--私版浮框 -->
-        <div class="modal fade" id="pr-modal">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <!-- Modal body -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">關閉</button>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!--私版浮框 -->
+    <div class="modal fade" id="pr-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <!-- Modal body -->
 
-                    <div class="modal-body ">
-                        <input type="password" class="form-control mt-1" placeholder="請輸入版的密碼" />
-                        <button id="pr-btn" type="button" class="btn btn-success mt-2 float-right" data-dismiss="modal">
-                            確認
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--公版浮框 -->
-        <div class="modal fade" id="pu-modal" role="alertdialog">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <!-- Modal body -->
-                    <div class="modal-body ">
-                        <h4>Header Test</h4>
-                        <label>文字介紹</label>
-                        <hr>
-                        <strong>確認跳轉?</strong>
-                        <button id="pu-btn" type="button" class="btn btn-success  float-right" data-dismiss="modal"> 確認
-                        </button>
-                    </div>
+                <div class="modal-body ">
+                    <input type="password" class="form-control mt-1" placeholder="請輸入版的密碼" />
+                    <button id="pr-btn" type="button" class="btn btn-success mt-2 float-right" data-dismiss="modal">
+                        確認
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+    <!--公版浮框 -->
+    <!-- <div class="modal fade" id="pu-modal" role="alertdialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-body ">
+                    <h4>Header Test</h4>
+                    <label>文字介紹</label>
+                    <hr>
+                    <strong>確認跳轉?</strong>
+                    <button id="pu-btn" type="button" class="btn btn-success  float-right" data-dismiss="modal"> 確認
+                    </button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    </div>
     <footer>
     </footer>
+
     <script>
         var board_id = "";
         var input_item;
@@ -365,7 +409,8 @@
                 $('#change-form').children('input[name="include"]').val($('#change-input').val());
                 //$('#change-form').submit();
                 if ($('#change-form > input[name="type"]').val() == 'password')
-                    alert('您將您的密碼變更為:' + $('#change-form > input[name="include"]').val() + "  ,若變更成功會進行自動登出, 請再次重新登入");
+                    alert('您將您的密碼變更為:' + $('#change-form > input[name="include"]').val() +
+                        "  ,若變更成功會進行自動登出, 請再次重新登入");
                 $.post('../SAN/ChangeMe', {
                     ID: $('#change-form > input[name="ID"]').val(),
                     password: $('#change-form > input[name="password"]').val(),
@@ -375,8 +420,7 @@
                     if (result['result'] == 'success') {
                         alert('更新成功');
                         location.reload();
-                    }
-                    else
+                    } else
                         alert('更新失敗, 過段時間再試一次');
                 });
             }
@@ -395,6 +439,7 @@
             }
 
         }
+
         function change_Page(form_id, board_type) {
             var inform = form_id.split('_');
             var board = inform[0];
@@ -411,22 +456,21 @@
                     },
                     dataType: "json",
                     success: function (response) {
-                        // console.log(response["introduce"]);
-                        $('#pu-btn').siblings('h4').text(response["title"]);
-                        $('#pu-btn').siblings('label').text(response["introduce"].replace(/<[^>]+>/g, ""));
+                        $('#' + board_id).submit();
+                        //  $('#pu-btn').siblings('h4').text(response["title"]);
+                        //  $('#pu-btn').siblings('label').text(response["introduce"].replace(/<[^>]+>/g, ""));
                     },
                     error: function (e) {
                         alert("不可預期的錯誤");
                     }
                 });
-                $('#pu-modal').modal('show');
-                // console.log(11111);
+                //  $('#pu-modal').modal('show');
             }
         }
         //public board enter 
-        $('#pu-btn').on('click', function () {
-            $('#' + board_id).submit();
-        });
+        /*   $('#pu-btn').on('click', function () {
+               $('#' + board_id).submit();
+           });*/
 
         //private board enter password
         $('#pr-btn').on('click', function () {
@@ -478,6 +522,7 @@
             }
         }
     </script>
+    <script src="/javascripts/component.js"></script>
 </body>
 
 </html>
