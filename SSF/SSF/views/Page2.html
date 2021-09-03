@@ -74,9 +74,10 @@
     <div class="container-fluid ">
         <div class="row">
             <!-- NavBar for Phone -->
-            <div class="collapse d-md-none collapsing col-sm-12" id="navbarToggleExternalContent" >
+            <div class="collapse d-md-none collapsing col-sm-12" id="navbarToggleExternalContent">
                 <div class=" mb-5 p-2">
-                    <div class="row " style="cursor: pointer;" onclick="$('#navbarToggleExternalContent').removeClass('show')">
+                    <div class="row " style="cursor: pointer;"
+                        onclick="$('#navbarToggleExternalContent').removeClass('show')">
                         <div class="btn btn-outline-info btn-lg mb-1 btn-block imageDiv" data-toggle="collapse"
                             data-target="#lover" value='introduction'
                             style="background:center / contain no-repeat url(/images/favoriteButton.png);">
@@ -85,7 +86,8 @@
                             將喜歡的看板納入我的最愛，方便您快速找尋看板進入看板
                         </p>
                     </div>
-                    <div class="row " style="cursor: pointer;" onclick="$('#navbarToggleExternalContent').removeClass('show')">
+                    <div class="row " style="cursor: pointer;"
+                        onclick="$('#navbarToggleExternalContent').removeClass('show')">
                         <div type="button" class="btn btn-outline-info btn-lg btn-block mb-1 imageDiv"
                             data-toggle="collapse" data-target="#notice" value='register'
                             style="background:center / contain no-repeat url(/images/notifyButton.png);">
@@ -94,8 +96,8 @@
                             您曾留言，評論，分享過的議題，若有人在下方回覆，點選我就能看得到最新通知。
                         </p>
                     </div>
-                    <div class="row" style="cursor: pointer;" >
-                        <div class="col-12"  onclick="$(this).children('form').submit()">
+                    <div class="row" style="cursor: pointer;">
+                        <div class="col-12" onclick="$(this).children('form').submit()">
                             <form method="POST" action="/CB/department/ALL">
                                 <input type="text" name="ID" value="<%= ID %>" style="display: none;">
                                 <input type="text" name="password" value="<%=information['password']%>"
@@ -184,97 +186,113 @@
                     <h3>我的最愛看板</h3>
                     <hr>
                     <%for(var key in lover){%>
-                    <% var l_inform=key.split('_') ;%>
-                    <div id="<%-key%>" class="container">
-                        <div class="row ">
-                            <!-- english to chinese -->
-                            <% if(l_inform[0]==='private' ){%>
-                            <h4 class="col-md-1 col-sm-12 my-auto p-2" style="color: gray;font-weight:bold">私</h4>
-                            <%}else if(l_inform[0]==='public' ){%>
-                            <h4 class="col-md-1 ol-sm-12 my-auto p-2" style="font-weight:bold">公</h4>
-                            <%}%>
-
-                            <h5 class="col-md-8 ol-sm-12 my-auto p-2" style="text-align: center;font-weight:bold">
-                                <%=lover[key]%>
-                            </h5>
-
-                            <div class="col-md-3 ol-sm-12 d-inline-flex  justify-content-center p-2">
-                                <button style="border-radius: 0%; font-weight:bold;"
-                                    class=" btn btn-outline-dark btn-lg" onclick="change_Page('<%=key%>','lover')">
-                                    進入版面
-                                </button>
-                                <button style="border-radius: 0%; font-weight:bold;"
-                                    class="ml-2 btn btn-outline-danger btn-lg"
-                                    onclick="delete_List('<%-key%>', 'lover')">
-                                    刪除
-                                </button>
-                                <form id="lover<%=key%>" method="POST" action="/JB/to_<%= l_inform[0] %>_board"
-                                    style="margin: 10px; display: none;">
+                        <% var l_inform=key.split('_') ;%>
+                            <div id="<%-key%>" class="container">
+                                <div class="row ">
+                                    <!-- english to chinese -->
                                     <% if(l_inform[0]==='private' ){%>
-                                    <input type="text" id="pw-lover<%=key%>" name="board_password" />
-                                    <input type="submit" value="確認" />
-                                    <%}%>
+                                        <h4 class="col-md-1 col-sm-12 my-auto p-2" style="color: gray;font-weight:bold">
+                                            私</h4>
+                                        <%}else if(l_inform[0]==='public' ){%>
+                                            <h4 class="col-md-1 ol-sm-12 my-auto p-2" style="font-weight:bold">公</h4>
+                                            <%}%>
+
+                                                <h5 class="col-md-8 ol-sm-12 my-auto p-2"
+                                                    style="text-align: center;font-weight:bold">
+                                                    <%=lover[key]%>
+                                                </h5>
+
+                                                <div
+                                                    class="col-md-3 ol-sm-12 d-inline-flex  justify-content-center p-2">
+                                                    <button style="border-radius: 0%; font-weight:bold;"
+                                                        class=" btn btn-outline-dark btn-lg"
+                                                        onclick="change_Page('<%=key%>','lover')">
+                                                        進入版面
+                                                    </button>
+                                                    <button style="border-radius: 0%; font-weight:bold;"
+                                                        class="ml-2 btn btn-outline-danger btn-lg"
+                                                        onclick="delete_List('<%-key%>', 'lover')">
+                                                        刪除
+                                                    </button>
+                                                    <form id="lover<%=key%>" method="POST"
+                                                        action="/JB/to_<%= l_inform[0] %>_board"
+                                                        style="margin: 10px; display: none;">
+                                                        <% if(l_inform[0]==='private' ){%>
+                                                            <input type="text" id="pw-lover<%=key%>"
+                                                                name="board_password" />
+                                                            <input type="submit" value="確認" />
+                                                            <%}%>
                                                                 <input name='ID' value="<%= ID %>" />
-                                    <input name='type' value="<%= l_inform[0] %>" />
-                                    <input name='board_ID' value="<%= l_inform[0] + '_' + l_inform[1]%>" />
-                                    <input name="password" value="<%=information['password']%>" />
-                                </form>
+                                                                <input name='type' value="<%= l_inform[0] %>" />
+                                                                <input name='board_ID'
+                                                                    value="<%= l_inform[0] + '_' + l_inform[1]%>" />
+                                                                <input name="password"
+                                                                    value="<%=information['password']%>" />
+                                                    </form>
+                                                </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <%}%>
+                            <hr>
+                            <%}%>
                 </div>
                 <!-- inform -->
                 <div id=notice class="div-collapse collapse " data-parent="#content-div">
                     <h3>看板訊息通知</h3>
                     <hr>
                     <%for(var key in notice){%>
-                    <% var n_inform=key.split('_') ;%>
+                        <% var n_inform=key.split('_') ;%>
 
-                    <div id="<%-key%>" class=" container">
-                        <div class="row w-100  pb-1">
-                            <!-- english to chinese -->
-                            <% if(n_inform[0]==='private' ){%>
-                            <h4 class="col-md-1 col-sm-12 my-auto p-2" style="color: gray;font-weight:bold">私</h4>
-                            <%}else if(n_inform[0]==='public' ){%>
-                            <h4 class="col-md-1 col-sm-12 my-auto p-2" style="font-weight:bold">公</h4>
-                            <%}%>
-                            <h5 class="col-md-5 col-sm-12 my-auto p-2" style="text-align: center;font-weight:bold">
-                                <%= notice[key]%>
-                            </h5>
-                            <p class="col-md-3 col-sm-12 my-auto p-2" style="text-align: center;font-weight:bold;">
-                                貼文編號
-                                <br>
-                                <%= n_inform[2] %>
-                            </p>
-                            <div class="col-md-3 col-sm-12 d-inline-flex justify-content-center p-2">
-                                <button style="border-radius: 0%; font-weight:bold;"
-                                    class=" btn btn-outline-dark btn-lg" onclick="change_Page('<%=key%>','notice')">
-                                    進入版面
-                                </button>
-                                <button style="border-radius: 0%; font-weight:bold;"
-                                    class="ml-2 btn btn-outline-danger btn-lg"
-                                    onclick="delete_List('<%-key%>','notice')">
-                                    刪除
-                                </button>
-                                <form id="notice<%=key%>" method="POST" action="/JB/to_<%=n_inform[0]%>_board"
-                                    style="display:none">
+                            <div id="<%-key%>" class=" container">
+                                <div class="row w-100  pb-1">
+                                    <!-- english to chinese -->
                                     <% if(n_inform[0]==='private' ){%>
-                                    <input type="text" id="pw-notice<%=key%>" name="board_password" />
-                                    <input type="submit" value="確認" />
-                                    <%}%>
+                                        <h4 class="col-md-1 col-sm-12 my-auto p-2" style="color: gray;font-weight:bold">
+                                            私</h4>
+                                        <%}else if(n_inform[0]==='public' ){%>
+                                            <h4 class="col-md-1 col-sm-12 my-auto p-2" style="font-weight:bold">公</h4>
+                                            <%}%>
+                                                <h5 class="col-md-5 col-sm-12 my-auto p-2"
+                                                    style="text-align: center;font-weight:bold">
+                                                    <%= notice[key]%>
+                                                </h5>
+                                                <p class="col-md-3 col-sm-12 my-auto p-2"
+                                                    style="text-align: center;font-weight:bold;">
+                                                    貼文編號
+                                                    <br>
+                                                    <%= n_inform[2] %>
+                                                </p>
+                                                <div
+                                                    class="col-md-3 col-sm-12 d-inline-flex justify-content-center p-2">
+                                                    <button style="border-radius: 0%; font-weight:bold;"
+                                                        class=" btn btn-outline-dark btn-lg"
+                                                        onclick="change_Page('<%=key%>','notice')">
+                                                        進入版面
+                                                    </button>
+                                                    <button style="border-radius: 0%; font-weight:bold;"
+                                                        class="ml-2 btn btn-outline-danger btn-lg"
+                                                        onclick="delete_List('<%-key%>','notice')">
+                                                        刪除
+                                                    </button>
+                                                    <form id="notice<%=key%>" method="POST"
+                                                        action="/JB/to_<%=n_inform[0]%>_board" style="display:none">
+                                                        <% if(n_inform[0]==='private' ){%>
+                                                            <input type="text" id="pw-notice<%=key%>"
+                                                                name="board_password" />
+                                                            <input type="submit" value="確認" />
+                                                            <%}%>
                                                                 <input name='ID' value="<%= ID %>" />
-                                    <input name='type' value='<%= n_inform[0] %>' />
-                                    <input name='board_ID' value='<%= n_inform[0] + "_" + n_inform[1]%>' />
-                                    <input name='place' value='<%= n_inform[2] %>' />
-                                    <input name="password" value="<%=information['password']%>" />
-                                </form>
+                                                                <input name='type' value='<%= n_inform[0] %>' />
+                                                                <input name='board_ID'
+                                                                    value='<%= n_inform[0] + "_" + n_inform[1]%>' />
+                                                                <input name='place' value='<%= n_inform[2] %>' />
+                                                                <input name="password"
+                                                                    value="<%=information['password']%>" />
+                                                    </form>
+                                                </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <%}%>
+                            <hr>
+                            <%}%>
                 </div>
             </div>
         </div>
@@ -291,82 +309,82 @@
                                     我的會員資料
                                 </h3>
                             </div>
-                <div class="mt-3">
-                        <h4>帳號 | <%=information['ID']%>
-                    </h4>
-                    <h4>姓名 | <%=information['name']%>
-                    </h4>
-                    <h4 style="display: none;">密碼 : <span class="mosiac">
-                            <%=information['password']%>
-                        </span><small style="color:gray">(反白可以看到密碼)</small></h4>
-                    <h4>學校 | <%=information['school']%>
-                    </h4>
-                    <h4>性別 | <%=information['gender']%>
-                    </h4>
-                    <h4>Mail | <%=information['mail']%>
-                    </h4>
-                </div>
-                <div>
+                            <div class="mt-3">
+                                <h4>帳號 | <%=information['ID']%>
+                                </h4>
+                                <h4>姓名 | <%=information['name']%>
+                                </h4>
+                                <h4 style="display: none;">密碼 : <span class="mosiac">
+                                        <%=information['password']%>
+                                    </span><small style="color:gray">(反白可以看到密碼)</small></h4>
+                                <h4>學校 | <%=information['school']%>
+                                </h4>
+                                <h4>性別 | <%=information['gender']%>
+                                </h4>
+                                <h4>Mail | <%=information['mail']%>
+                                </h4>
+                            </div>
+                            <div>
 
-                </div>
-                <div>
-                    <button type="button" class="btn btn-secondary btn w-100 mb-1" data-toggle="collapse"
-                        data-target="#inform" value='change'>
-                        更改資訊 <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                    </button>
-                </div>
-                <div id=inform class="div-collapse collapse input-group ">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            類別
-                        </button>
-                        <div class="dropdown-menu">
-                            <button class="dropdown-item" value="name">姓名</button>
-                            <button class="dropdown-item" value="password">密碼</button>
-                            <button class="dropdown-item" value="school">學校</button>
-                            <button class="dropdown-item" value="gender">性別</button>
-                            <button class="dropdown-item" value="mail">e-mail</button>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-secondary btn w-100 mb-1" data-toggle="collapse"
+                                    data-target="#inform" value='change'>
+                                    更改資訊 <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div id=inform class="div-collapse collapse input-group ">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        類別
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <button class="dropdown-item" value="name">姓名</button>
+                                        <button class="dropdown-item" value="password">密碼</button>
+                                        <button class="dropdown-item" value="school">學校</button>
+                                        <button class="dropdown-item" value="gender">性別</button>
+                                        <button class="dropdown-item" value="mail">e-mail</button>
+                                    </div>
+                                </div>
+                                <input id="change-input" type="text" class="form-control"
+                                    aria-label="Text input with dropdown button">
+                                <div class="input-group-append">
+                                    <!-- 更改信息區域 -->
+                                    <form id="change-form" method="POST" action="/SAN/ChangeMe" style="display: none;">
+                                        <input name="ID" value="<%=information['ID']%>" />
+                                        <input name="password" value="<%=information['password']%>" />
+                                        <input name="type" />
+                                        <input name="include" />
+                                    </form>
+                                    <button class="btn btn-success" type="button">輸入</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <input id="change-input" type="text" class="form-control"
-                        aria-label="Text input with dropdown button">
-                    <div class="input-group-append">
-                        <!-- 更改信息區域 -->
-                        <form id="change-form" method="POST" action="/SAN/ChangeMe" style="display: none;">
-                            <input name="ID" value="<%=information['ID']%>" />
-                            <input name="password" value="<%=information['password']%>" />
-                            <input name="type" />
-                            <input name="include" />
-                        </form>
-                        <button class="btn btn-success" type="button">輸入</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">關閉</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">關閉</button>
-        </div>
-    </div>
-    </div>
-    </div>
-    <!--私版浮框 -->
-    <div class="modal fade" id="pr-modal">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <!-- Modal body -->
+        <!--私版浮框 -->
+        <div class="modal fade" id="pr-modal">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <!-- Modal body -->
 
-                <div class="modal-body ">
-                    <input type="password" class="form-control mt-1" placeholder="請輸入版的密碼" />
-                    <button id="pr-btn" type="button" class="btn btn-success mt-2 float-right" data-dismiss="modal">
-                        確認
-                    </button>
+                    <div class="modal-body ">
+                        <input type="password" class="form-control mt-1" placeholder="請輸入版的密碼" />
+                        <button id="pr-btn" type="button" class="btn btn-success mt-2 float-right" data-dismiss="modal">
+                            確認
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--公版浮框 -->
-    <!-- <div class="modal fade" id="pu-modal" role="alertdialog">
+        <!--公版浮框 -->
+        <!-- <div class="modal fade" id="pu-modal" role="alertdialog">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-body ">

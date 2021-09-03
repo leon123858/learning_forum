@@ -44,12 +44,12 @@
             </div>
             <!-- need to discuss -->
             <div class="navbar-brand col-md-1" style="display:flex;align-items: center;">
-                <a href="http://140.116.183.54:1337">
-                    <button class="btn btn-outline-secondary d-none d-md-block" style="border-radius: 0%;">
-                        <strong>回首頁</strong>
-                    </button>
-                </a>
-
+                <form method="post" action="/SAN/sign_in">
+                    <input type="text" name='ID' style="display:none" value="<%=ID%>" />
+                    <input type="text" name='password' style="display:none" value="<%=password%>" />
+                    <input style="border-radius: 0%;font-weight:bold;" type="submit"
+                        class=" btn btn-outline-secondary d-none d-md-block" value="回首頁" />
+                </form>
             </div>
             <h2 class="my-auto col-md-5 text-center" style="font-weight: bold;">所有看板區</h2>
         </div>
@@ -72,11 +72,12 @@
                     <!-- 關鍵搜尋 -->
                     <div class="  p-1">
                         <!-- 延展button -->
-                        <div class="leftTextDiv blueDivColor" >
-                            <h4 class="my-auto" style="font-weight: bold; text-align:center;line-height:45px">看板關鍵字搜尋</h4>
+                        <div class="leftTextDiv blueDivColor">
+                            <h4 class="my-auto" style="font-weight: bold; text-align:center;line-height:45px">看板關鍵字搜尋
+                            </h4>
                         </div>
 
-                        <div class="show" >
+                        <div class="show">
                             <!-- 自己輸入關鍵字 -->
                             <div class="input-group pb-1 pt-1">
                                 <input id="self-search" type="text" class="form-control" placeholder="輸入關鍵字"
@@ -92,12 +93,14 @@
                             </h4>
                             <div class="list-group ">
                                 <%for(var key in keywords){%>
-                                <button data-toggle="list" role="tab"
-                                    class="leftTextDiv list-group-item list-group-item-action  clearfix list-group-item-heading"
-                                    id='keywords<%=keywords[key]%>' style="cursor: pointer;">
-                                    <h4 class="my-auto text-center" style="font-weight: bold;"> <%=keywords[key]%></h4>
-                                </button>
-                                <%}%>
+                                    <button data-toggle="list" role="tab"
+                                        class="leftTextDiv list-group-item list-group-item-action  clearfix list-group-item-heading"
+                                        id='keywords<%=keywords[key]%>' style="cursor: pointer;">
+                                        <h4 class="my-auto text-center" style="font-weight: bold;">
+                                            <%=keywords[key]%>
+                                        </h4>
+                                    </button>
+                                    <%}%>
                             </div>
                         </div>
                     </div>
@@ -137,12 +140,14 @@
                             </h4>
                             <div class="list-group">
                                 <%for(var key in keywords){%>
-                                <button data-toggle="list" role="tab"
-                                    class="leftTextDiv list-group-item list-group-item-action  clearfix list-group-item-heading"
-                                    id='keywords<%=keywords[key]%>' style="cursor: pointer;">
-                                    <h4 class="my-auto text-center" style="font-weight: bold;"> <%=keywords[key]%></h4>
-                                </button>
-                                <%}%>
+                                    <button data-toggle="list" role="tab"
+                                        class="leftTextDiv list-group-item list-group-item-action  clearfix list-group-item-heading"
+                                        id='keywords<%=keywords[key]%>' style="cursor: pointer;">
+                                        <h4 class="my-auto text-center" style="font-weight: bold;">
+                                            <%=keywords[key]%>
+                                        </h4>
+                                    </button>
+                                    <%}%>
                             </div>
                         </div>
                     </div>
@@ -155,198 +160,197 @@
                 <div id="list-tab" role="tablist" style=" height:500px; overflow-y:auto">
                     <h3 class="text-center m-auto" style="display: none;font-weight:bold">查無相關列表</h3>
                     <%for(var i=0;i<boards.length;i++){%>
-                                <div id="<%=boards[i]['tab']%>:<%=boards[i]['title']%>" tab="<%=boards[i]['tab']%>"
-                                    class="boardList" title="<%=boards[i]['title']%>">
-                                    <div class=" container">
-                                        <div class="row w-100">
-                                            <h4 class="col-md-9 col-sm-5 my-auto p-2"
-                                                style="font-weight: bold;text-align:center">
-                                                <%=boards[i]['tab']%>:
-                                                <%=boards[i]['title']%>
-                                            </h4>
-                                            <div class="col-md-3 col-sm-3 d-inline-flex justify-content-center p-2">
-                                                <button style="border-radius: 0%; font-weight:bold;"
-                                                    class=" btn btn-outline-dark btn-lg"
-                                                    value="<%-boards[i]['include']%>" data-toggle="modal"
-                                                    name="<%=boards[i]['board_ID']%>"
-                                                    onclick="setInformModal($(this).siblings('button')[0],this.getAttribute('value'))">
-                                                    看板資訊
-                                                </button>
-                                                <!--跳轉按鈕-->
-                                                <button style="border-radius: 0%; font-weight:bold;"
-                                                    class=" ml-2 btn btn-outline-success btn-lg"
-                                                    name="<%=boards[i]['board_ID']%>"
-                                                    onclick="$(this).siblings('form')[0].submit()">
-                                                    進入
-                                                </button>
-                                                <form method="POST" action="/JB/to_public_board"
-                                                    id="<%=boards[i]['board_ID']%>" name="<%=boards[i]['tab']%>">
-                                                    <input type='text' name='ID' value='<%=ID%>' style="display: none;">
-                                                    <input type='text' name='board_ID'
-                                                        value="<%=boards[i]['board_ID']%>" style="display: none;">
-                                                    <input type='text' name='password' value="<%=password%>"
-                                                        style="display: none;">
-                                                </form>
-                                            </div>
-                                        </div>
+                        <div id="<%=boards[i]['tab']%>:<%=boards[i]['title']%>" tab="<%=boards[i]['tab']%>"
+                            class="boardList" title="<%=boards[i]['title']%>">
+                            <div class=" container">
+                                <div class="row w-100">
+                                    <h4 class="col-md-9 col-sm-5 my-auto p-2"
+                                        style="font-weight: bold;text-align:center">
+                                        <%=boards[i]['tab']%>:
+                                            <%=boards[i]['title']%>
+                                    </h4>
+                                    <div class="col-md-3 col-sm-3 d-inline-flex justify-content-center p-2">
+                                        <button style="border-radius: 0%; font-weight:bold;"
+                                            class=" btn btn-outline-dark btn-lg" value="<%-boards[i]['include']%>"
+                                            data-toggle="modal" name="<%=boards[i]['board_ID']%>"
+                                            onclick="setInformModal($(this).siblings('button')[0],this.getAttribute('value'))">
+                                            看板資訊
+                                        </button>
+                                        <!--跳轉按鈕-->
+                                        <button style="border-radius: 0%; font-weight:bold;"
+                                            class=" ml-2 btn btn-outline-success btn-lg"
+                                            name="<%=boards[i]['board_ID']%>"
+                                            onclick="$(this).siblings('form')[0].submit()">
+                                            進入
+                                        </button>
+                                        <form method="POST" action="/JB/to_public_board" id="<%=boards[i]['board_ID']%>"
+                                            name="<%=boards[i]['tab']%>">
+                                            <input type='text' name='ID' value='<%=ID%>' style="display: none;">
+                                            <input type='text' name='board_ID' value="<%=boards[i]['board_ID']%>"
+                                                style="display: none;">
+                                            <input type='text' name='password' value="<%=password%>"
+                                                style="display: none;">
+                                        </form>
                                     </div>
-                                    <hr>
                                 </div>
-                                <%}%>          
+                            </div>
+                            <hr>
+                        </div>
+                        <%}%>
                 </div>
             </div>
             <!-- Button trigger modal -->
         </div>
-  <!--看版資訊Modal -->
-  <div class="modal fade" id="introduceModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header p-2">
-            <h3 class="my-auto" style="display: inline; font-weight:bold ">
-                <img src="/images/resume.png" style="display: inline;width: 30px;" alt="">
-                看板資訊
-            </h3>
-        </div>
-        <div class="modal-body" id="test">
-         
-        </div>
-        <div class="modal-footer">
-          <button type="button"  style="border-radius: 0%; font-weight:bold;"
-          class=" btn btn-outline-secondary btn-lg" data-dismiss="modal">
-           關閉
-        </button>
-          <button  type="button"  style="border-radius: 0%; font-weight:bold;"
-          class=" btn btn-outline-success btn-lg" onclick="submitButton.click()">
-           進入
-        </button>
-        </div>
-      </div>
-    </div>
+        <!--看版資訊Modal -->
+        <div class="modal fade" id="introduceModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header p-2">
+                        <h3 class="my-auto" style="display: inline; font-weight:bold ">
+                            <img src="/images/resume.png" style="display: inline;width: 30px;" alt="">
+                            看板資訊
+                        </h3>
+                    </div>
+                    <div class="modal-body" id="test">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" style="border-radius: 0%; font-weight:bold;"
+                            class=" btn btn-outline-secondary btn-lg" data-dismiss="modal">
+                            關閉
+                        </button>
+                        <button type="button" style="border-radius: 0%; font-weight:bold;"
+                            class=" btn btn-outline-success btn-lg" onclick="submitButton.click()">
+                            進入
+                        </button>
+                    </div>
+                </div>
+            </div>
 
 
 
-    <script>
-        var lock = false;
-        var now_tag = 'all';
-        var submitButton=null;
-        // 解除tab鎖定
-        function unlock_List() {
-            lock = false;
-            $('.boardList').show()
-            $('#self-search').val('');
-            $('#list-tab>h3').hide();
-            $('.list-group-item-heading').removeClass("active")
-            now_tag = 'all';
-        }
-        $('button[value = "all"]').click(unlock_List);
-        //
-        /*
-        關鍵搜尋打字--select title
-        若有選擇tag title 會在tag過濾後繼續做搜索
-        */
-        $("#self-search").on('keyup', debounce(function (e) {
-            const boardList=document.getElementsByClassName("boardList");
-            let haveList=false;
-           /* if ($(this).val() == "") {
-                select_Topic('text-tab', now_tag);
-            } else {
-                select_Topic('text-title', $(this).val());
-            }*/        
-            for(i=0;i<boardList.length;++i){
-                const titleName =boardList[i].getAttribute("title");       
-                if(titleName.includes($(this).val()) && boardList[i].style.display!="none"){
-                    haveList=true;
-                    boardList[i].style.display= "block";
-                }else{
-                    boardList[i].style.display= "none";
+            <script>
+                var lock = false;
+                var now_tag = 'all';
+                var submitButton = null;
+                // 解除tab鎖定
+                function unlock_List() {
+                    lock = false;
+                    $('.boardList').show()
+                    $('#self-search').val('');
+                    $('#list-tab>h3').hide();
+                    $('.list-group-item-heading').removeClass("active")
+                    now_tag = 'all';
                 }
-            }
-            haveList? $('#list-tab>h3').hide(): $('#list-tab>h3').show();
-        }));
-        //常見標籤搜尋--select tab
-        $('.list-group-item-heading').click(debounce(function () {
-            $('#self-search').val('');
-            let haveList=false;
-            const boardList=document.getElementsByClassName("boardList")
-            for(i=0;i<boardList.length;++i){
-                const tabName =boardList[i].getAttribute("tab");
-                
-                if(tabName.includes($(this).text())){
-                    haveList=true;
-                    boardList[i].style.display= "block";
-                }else{
-                    boardList[i].style.display= "none";
-                }
-            }
-            now_tag = $(this).text();
-            haveList? $('#list-tab>h3').hide(): $('#list-tab>h3').show();
-        }));
-        //跳轉頁面
-        $("input[type = 'submit']").click(function () {
-            $('#' + $(this).attr('name')).submit();
-        });
-        //prevent  rapid calls
-        function debounce(fn) {
-            var timer;
-            return function () {
-                var that = this;		//防止this 變成window對象
-                var args = arguments;	//得到參數
-                if (timer) {
-                    clearTimeout(timer);	//當函數還未執行，清除即將產生的計時器
-                }
-                timer = setTimeout(function () {
-                    timer = null;
-                    fn.apply(that, args); //用apply调用函数
-                }, 500);	//0.5秒延遲
-            }
-        }
-        function setInformModal(button,text){
-            submitButton=button;
-            console.log(submitButton)
-            $('.modal-body').text(text)
-            $('#introduceModal').modal('show')
-        }
-        /*select_Topic()
-        *   argument:mode,(text-title,text-tab)
-        *   kind,(text for search)
-        */
-       /* function select_Topic(mode, kind) {
-            $('#list-tab >h3').hide();
-            if (kind == 'all') {
-                unlock_List();
-                return;
-            }
-            // console.log(kind);
-            hasTab = false;
-            kind = kind.toLowerCase();
-            var tab_list = $('#list-tab').children('a');
-            var length = tab_list.length;
-            var i = length;
-            function appenditems() {
-                for (j = 0; i >= 0, j < 100; --i, ++j) {
-                    if (tab_list[i] != undefined) {
-                        let search = tab_list[i].getAttribute(mode).toString().toLowerCase();
-                        let check = tab_list[i].getAttribute('style');
-                        if (!search.includes(kind)) {
-                            tab_list[i].setAttribute('style', 'display: none');
-                        } else if (check == "display: block" || mode == "text-tab" || now_tag == "all") {
-                            console.log(check);
-                            hasTab = true;
-                            tab_list[i].setAttribute('style', 'display: block');
+                $('button[value = "all"]').click(unlock_List);
+                //
+                /*
+                關鍵搜尋打字--select title
+                若有選擇tag title 會在tag過濾後繼續做搜索
+                */
+                $("#self-search").on('keyup', debounce(function (e) {
+                    const boardList = document.getElementsByClassName("boardList");
+                    let haveList = false;
+                    /* if ($(this).val() == "") {
+                         select_Topic('text-tab', now_tag);
+                     } else {
+                         select_Topic('text-title', $(this).val());
+                     }*/
+                    for (i = 0; i < boardList.length; ++i) {
+                        const titleName = boardList[i].getAttribute("title");
+                        if (titleName.includes($(this).val()) && boardList[i].style.display != "none") {
+                            haveList = true;
+                            boardList[i].style.display = "block";
+                        } else {
+                            boardList[i].style.display = "none";
                         }
                     }
+                    haveList ? $('#list-tab>h3').hide() : $('#list-tab>h3').show();
+                }));
+                //常見標籤搜尋--select tab
+                $('.list-group-item-heading').click(debounce(function () {
+                    $('#self-search').val('');
+                    let haveList = false;
+                    const boardList = document.getElementsByClassName("boardList")
+                    for (i = 0; i < boardList.length; ++i) {
+                        const tabName = boardList[i].getAttribute("tab");
+
+                        if (tabName.includes($(this).text())) {
+                            haveList = true;
+                            boardList[i].style.display = "block";
+                        } else {
+                            boardList[i].style.display = "none";
+                        }
+                    }
+                    now_tag = $(this).text();
+                    haveList ? $('#list-tab>h3').hide() : $('#list-tab>h3').show();
+                }));
+                //跳轉頁面
+                $("input[type = 'submit']").click(function () {
+                    $('#' + $(this).attr('name')).submit();
+                });
+                //prevent  rapid calls
+                function debounce(fn) {
+                    var timer;
+                    return function () {
+                        var that = this;		//防止this 變成window對象
+                        var args = arguments;	//得到參數
+                        if (timer) {
+                            clearTimeout(timer);	//當函數還未執行，清除即將產生的計時器
+                        }
+                        timer = setTimeout(function () {
+                            timer = null;
+                            fn.apply(that, args); //用apply调用函数
+                        }, 500);	//0.5秒延遲
+                    }
                 }
-                if (i >= 0) window.setTimeout(appenditems, 0);
-                if (i < 0) {
-                    hasTab ? $('#list-tab >h3').hide() : $('#list-tab >h3').show();
+                function setInformModal(button, text) {
+                    submitButton = button;
+                    console.log(submitButton)
+                    $('.modal-body').text(text)
+                    $('#introduceModal').modal('show')
                 }
-            }
-            appenditems();
-        }*/
+        /*select_Topic()
+                                                        *   argument:mode,(text-title,text-tab)
+                                                        *   kind,(text for search)
+                                                        */
+                /* function select_Topic(mode, kind) {
+                     $('#list-tab >h3').hide();
+                     if (kind == 'all') {
+                         unlock_List();
+                         return;
+                     }
+                     // console.log(kind);
+                     hasTab = false;
+                     kind = kind.toLowerCase();
+                     var tab_list = $('#list-tab').children('a');
+                     var length = tab_list.length;
+                     var i = length;
+                     function appenditems() {
+                         for (j = 0; i >= 0, j < 100; --i, ++j) {
+                             if (tab_list[i] != undefined) {
+                                 let search = tab_list[i].getAttribute(mode).toString().toLowerCase();
+                                 let check = tab_list[i].getAttribute('style');
+                                 if (!search.includes(kind)) {
+                                     tab_list[i].setAttribute('style', 'display: none');
+                                 } else if (check == "display: block" || mode == "text-tab" || now_tag == "all") {
+                                     console.log(check);
+                                     hasTab = true;
+                                     tab_list[i].setAttribute('style', 'display: block');
+                                 }
+                             }
+                         }
+                         if (i >= 0) window.setTimeout(appenditems, 0);
+                         if (i < 0) {
+                             hasTab ? $('#list-tab >h3').hide() : $('#list-tab >h3').show();
+                         }
+                     }
+                     appenditems();
+                 }*/
         //set Modal introduce Text
-       
-    </script>
-    <script src="/javascripts/component.js"></script>
+
+            </script>
+            <script src="/javascripts/component.js"></script>
 </body>
 
 </html>
