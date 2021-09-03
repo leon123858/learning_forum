@@ -6,93 +6,129 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/javascripts/jquery.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
-        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
     <title>看板區</title>
 </head>
-<header>
-    <div name="Title" class="jumbotron  mb-0 ">
-        <button class="btn btn-outline-dark  float-left" onclick="history.back()">上一頁</button>
-        <form method="post" action="/SAN/sign_in" id="sign_in_form">
-            <input type="text" name='ID' style="display:none" value="<%=ID%>" />
-            <input type="text" name='password' style="display:none" value="<%=password%>" />
-            <input type="submit" class=" btn btn-secondary float-left" value="回首頁" />
-        </form>
-        <div class="text-center  align-self-center">
-            <h1><small>
-                    <%=board_ID%>
-                </small></h1>
-            <small>You are <%=ID%></small> <button id="plusLover" type="button" class="btn btn-link">加到我的最愛</button>
-        </div>
+<style>
+    #navbarToggleExternalContent {
+        transform: translateX(-100%);
+        transition: transform .35s ease;
+        display: block;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 3px;
+        padding: 10px;
+    }
+
+    #navbarToggleExternalContent.menu-show {
+        transform: translateX(3%);
+    }
+</style>
+<header style="font-family: 'Yu Gothic';" class="pos-f-t">
+    <div style="background-color:#CCEEFF; width: 100%;">
+        &nbsp;&nbsp;
     </div>
+    <nav class="navbar navbar-light" style="background-color: white;">
+        <div id="headerDiv" class="row pl-2">
+            <div class="col-md-1">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <a class="navbar-brand col-md-4" href="http://140.116.183.54:1337/">
+                <div class="row ">
+                    <div class="d-none d-md-inline col-md-2 p-1">
+                        <img src="/images/Logo.png" class="w-100" alt="">
+                    </div>
+                    <div class="col-md-10 my-auto">
+                        <strong>高中教師社會科學增能平台</strong><br> <strong>UFO Teacher Empowerment Platform</strong>
+                    </div>
+                </div>
+            </a>
+            <!-- need to discuss -->
+            <div class="navbar-brand col-md-1" style="display:flex;align-items: center;">
+                <form method="post" action="/SAN/sign_in">
+                    <input type="text" name='ID' style="display:none" value="<%=ID%>" />
+                    <input type="text" name='password' style="display:none" value="<%=password%>" />
+                    <input style="border-radius: 0%;font-weight:bold;" type="submit"
+                        class=" btn btn-outline-secondary d-none d-md-block" value="回首頁" />
+                </form>
+            </div>
+            <h2 id="title" class="my-auto col-md-5 text-center" style="font-weight: bold;"></h2>
+        </div><button id="plusLover" class="btn btn-link">加到我的最愛</button>
+    </nav>
+    <hr>
 </header>
 
 <body>
-    <div class="container" style="font-family: 'Microsoft JhengHei';font-size: 130%;">
-        <!-- <div class="text-center jumbotron">
-            <h1><small><%=board_ID%></small></h1>
-            <small>You are <%=ID%></small>     <button type="button" class="btn btn-link">加到我的最愛</button>
-        </div> -->
-        <div id="introduce" class="bg-success"></div>
-        <!-- 篩選功能-->
-        <div id="find" class="bg-warning text-center">
-            找帳號或主題關鍵字: <input type="text" class="bg-warning" /><input type="button" value="篩選主題"
-                class="bg-warning btnclr" /><br />
-            輸入顯示前幾則貼文: <input type="text" class="bg-warning" /><input type="button" value="隱藏貼文"
-                class="bg-warning btnclr" /><br />
-            輸入目標貼文的號碼: <input type="text" id="where" class="bg-warning" /><input id="choosePost" type="button"
-                value="指定貼文" class="bg-warning btnclr" /><br />
-            <input id="unlimit" type="button" value="解除所有限制" class="btn-lg bg-warning btnclr" style="width:100%" />
+    <div style="z-index: 3;" class="bg-light collapse position-fixed" id="navbarToggleExternalContent">
+        <div>
+
+            <!-- 篩選功能-->
+            <div id="find" style="width: 450px;">
+                <strong>查詢條件設定</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="unlimit" class="btn btn-link" type="button" style="border:none;" value="清除條件" /><button
+                    style="color: red;left: 215px;position: relative;">X</button><br>
+                找尋帳號或是關鍵字: <input type="text" /><input type="button" value="篩選主題" /><br />
+                輸入顯示前幾則貼文: <input type="text" /><input type="button" value="隱藏貼文" /><br />
+                輸入目標貼文的號碼: <input type="text" id="where" /><input id="choosePost" type="button" value="指定貼文" /><br />
+            </div><br>
+            <!-- 發文跳轉 -->
+            <form id="post_submit" action="/JB/to_post_page" method="post">
+                <input type="text" name="ID" value="<%=ID%>" />
+                <input type="text" name="board_ID" value="<%=board_ID%>" />
+                <input type="text" name="board_password" value="<%=board_password%>" />
+                <input type="text" name="type" id="get_type" />
+                <input type="text" name="personal_password" id="personal_password" />
+                <input type="submit" value="我要發文" class="btn btn-outline-secondary" style="width:100%" />
+            </form>
         </div>
-        <!-- 發文跳轉 -->
-        <form id="post_submit" action="/JB/to_post_page" method="post">
-            <input type="text" name="ID" value="<%=ID%>" />
-            <input type="text" name="board_ID" value="<%=board_ID%>" />
-            <input type="text" name="board_password" value="<%=board_password%>" />
-            <input type="text" name="type" id="get_type" />
-            <input type="text" name="personal_password" id="personal_password" />
-            <input type="submit" value="我要發文" class="btn-lg bg-warning" style="width:100%" />
-        </form>
+    </div>
+    <div class="container" style="font-family: 'Microsoft JhengHei';">
+
+        <div id="introduce" style="border-style: solid;border-width: 1px;">
+            <h2>&nbsp;<img src="/images/information.png" style="width: 25px;" alt="">&nbsp;看板議題介紹</h2>
+        </div>
         <br>
         <div>
             <!-- 每則貼文主體 -->
             <%for(var i=num-1;i>= 0;i--){%>
-                <div id="<%=data[i]['num']%>" name="<%=i%>" class="post bg-info">
+                <div id="<%=data[i]['num']%>" name="<%=i%>" class="post"
+                    style="border-style: solid;border-width: 1px; padding: 10px;">
                     <strong>帳號:</strong><span>
                         <%=data[i]['ID']%>
                     </span><br />
                     <strong>標題:</strong><span>
                         <%=data[i]['title']%>
-                    </span><small style="color:grey"> 貼文編號: <%=data[i]['num']%></small> <a name="<%=data[i]['ID']%>"
-                        style="font-size:50%">編輯本篇貼文</a> <br />
+                    </span><small> 貼文編號: <%=data[i]['num']%></small> <a name="<%=data[i]['ID']%>" style="font-size:50%"
+                        class="btn btn-link">編輯本篇貼文</a> <br />
                     <small style="font-size:50%" class="simple_include">
                         <%if(data[i]['include'].replace( /<[^>]+>/g, "").length> 30){%><%=data[i]['include'].replace(
                                 /<[^>]+>/g, "").substr(0,30)%>
                                 <%}else{%>
                                     <%=data[i]['include'].replace( /<[^>]+>/g, "").substr(0)%>
-                                        <%}%>.....按展開內容看全部
-                    </small>
+                                        <%}%>.....
+                    </small><input type="button" style="font-size: 50%;border-style: none; background-color: unset;"
+                        value="展開內容" />
                     <div class="include" style="word-wrap: break-word;">
                         <%-data[i]['include']%>
                     </div> <br />
-                    <input class="btn btn-warning" type="button" value="展開內容" />
                     <!-- 寄留言-->
                     <form action="/DB/discuss" method="post">
                         <input type="text" name="num" value="<%=data[i]['num']%>" />
                         <input type="text" name="ID" value="<%=ID%>" />
                         <input type="text" name="board_ID" value="<%=board_ID%>" />
-                        <label class="label label-success">展開留言</label><input name="<%=data[i]['num']%>" type="button"
-                            value="我要留言" class="btn btn-link" />
-                        <input class="form-control" style="background-color:cornsilk" type="text" name="include"
-                            value="" />
+                        <label class="btn btn-link">展開留言</label>
+                        <div class="input-group mb-3">
+                            <input class="form-control" type="text" name="include" value="" />
+                            <div class="input-group-append">
+                                <input class="comment btn btn-secondary" name="<%=data[i]['num']%>"
+                                    style="border-style: none;" type="button" value="留言" />
+                            </div>
+                        </div>
                     </form>
                     <!-- 回應區-->
                     <div name="reply">
@@ -101,7 +137,6 @@
                                 <%}%>
                     </div>
                     <br />
-                    <hr style="color:white; border:5px" />
                 </div>
                 <%}%>
                     <br />
@@ -146,8 +181,8 @@
             $.get("../JB/get_board_introduce?board_ID=" + '<%=board_ID%>', function (result) {
                 //console.log(result);
                 if (result['introduce'] != undefined) {
-                    $("#introduce").html(result['introduce']);
-                    $('.text-center > h1').html(result['title'] + $('h1').html());
+                    $("#introduce").html($("#introduce").html() + result['introduce']);
+                    $('#title').html(result['title'] + $('#title').html());
                     $("#get_type").val(result['type']);
                 }
                 else {
@@ -173,30 +208,37 @@
         function changeReply(THIS, num) {
             if (THIS.text() == '展開留言') {
                 THIS.text('收合留言');
-                THIS.closest('form').next('div').show();
+                THIS.parent().next().show();
             }
             else {
                 //THIS.text('展開留言');
                 //THIS.closest('form').next('div').hide();
                 $.post("../DB/discuss_refresh", { ID: '<%-ID%>', board_ID: '<%-board_ID%>', num: num }, function (result) {
                     if (result['result'] == 'success') {
-                        var div = THIS.closest('form').next('div');
+                        var div = THIS.parent().next();
                         div.html('');
                         for (var i in result['data'])
                             div.append(result['data'][i] + '<br/>');
                         THIS.text('展開留言');
-                        THIS.closest('form').next('div').hide();
+                        div.hide();
                     }
                     else {
                         alert('更新失敗,伺服器有問題或您已斷線');
                         THIS.text('展開留言');
-                        THIS.closest('form').next('div').hide();
+                        THIS.parent().next().hide();
                     }
                 });
             }
         }
         $(document).ready(function () {
             init();
+            const $menu = $('#navbarToggleExternalContent');
+            $menu.on('show.bs.collapse', function () {
+                $menu.addClass('menu-show');
+            });
+            $menu.on('hide.bs.collapse', function () {
+                $menu.removeClass('menu-show');
+            });
             //發文跳轉
             $("#post_submit").submit(function (e) {
                 if (yourpassword == "") {
@@ -210,10 +252,12 @@
             //內容縮排
             $('input').click(function () {
                 if ($(this).val() == "縮起內容") {
-                    $(this).val("展開內容").prev().prev().hide().prev().show();
+                    $(this).val("展開內容").next().hide();
+                    $(this).prev().show();
                 }
                 else if ($(this).val() == "展開內容") {
-                    $(this).val("縮起內容").prev().prev().show().prev().hide();
+                    $(this).val("縮起內容").prev().hide();
+                    $(this).next().show();
                 }
             });
             //篩選功能
@@ -262,10 +306,11 @@
                         });
                         break;
                 }
-                $('.btnclr').removeClass('bg-primary').addClass('bg-warning');
-                $(this).removeClass('bg-warning').addClass('bg-primary');
-                //alert('篩選完成');
+
             });
+            $("#find > button").click(() => {
+                $(".navbar-toggler").click();
+            })
             if ($('#Hidden1').val() != 'NA') {
                 $('#where').val($('#Hidden1').val());
                 //alert("您由相關功能完成跳轉, 已自動將該則貼文填入[指定貼文]的輸入列中, 若要直接前往, 點擊[指定貼文]鈕即可。")
@@ -281,16 +326,16 @@
                 });
             });
             //加入留言功能
-            $('form > input[type = "button"]').click(function () {
-                var include = $(this).next('input').val();
-                var text = $(this).next('input');
+            $('.comment').click(function () {
+                var include = $(this).parent().prev().val();
+                var text = $(this).parent().prev();
                 var div = $(this).closest('form').next('div');
                 if ('我要留言' == $(this).val() && text.val().trim() != '') {
                     if (yourpassword == "") {
                         $("#myModal").modal("toggle");
                     }
                     else {
-                        $.post("../DB/discuss", { ID: '<%-ID%>', board_ID: '<%-board_ID%>', num: $(this).attr('name'), include: $(this).next('input').val(), personal_password: yourpassword }, function (result) {
+                        $.post("../DB/discuss", { ID: '<%-ID%>', board_ID: '<%-board_ID%>', num: $(this).attr('name'), include: $(this).parent().prev().val(), personal_password: yourpassword }, function (result) {
                             //alert(result['result']);
                             if (result['result'] == 'success') {
                                 div.append('<%-ID%>:' + include + '<br/>');
@@ -310,7 +355,7 @@
             });
             //留言展開
             $('label').click(function () {
-                changeReply($(this), $(this).next('input').attr('name'));
+                changeReply($(this), $(this).prev().prev().prev().val());
             });
             //貼文編輯
             $('a').click(function () {
