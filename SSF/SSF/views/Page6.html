@@ -19,7 +19,7 @@
 <style>
     .leftTextDiv {
         width: 100%;
-       
+
         height: 45px;
         line-height: 45px;
     }
@@ -35,6 +35,13 @@
     </div>
     <nav class="navbar navbar-light" style="background-color: white;">
         <div id="headerDiv" class="row pl-2">
+            <div class="d-md-none col-sm-2">
+                <button class="navbar-toggler " type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation" id="navbar-toggle">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
             <!-- need to discuss -->
             <div class="navbar-brand col-md-1" style="display:flex;align-items: center;">
                 <a href="http://140.116.183.54:1337">
@@ -52,9 +59,52 @@
 
 <body style="font-family: 'Microsoft JhengHei', cursive;">
     <div class=" container-fluid">
-        <div class="row" style="height: 800px;">
+        <div class="row">
+            <!-- 左邊欄位 for 手機 -->
+            <div class="col-md-3 d-md-none show" id="navbarToggleExternalContent">
+                <div class="d-flex flex-column">
+                    <!-- 全部顯示 -->
+                    <div class="p-1">
+                        <button class="leftTextDiv blueDivColor" value="all">
+                            <h4 class="my-auto" style="font-weight: bold;">全部看板顯示</h4>
+                        </button>
+                    </div>
+                    <!-- 關鍵搜尋 -->
+                    <div class="  p-1">
+                        <!-- 延展button -->
+                        <div class="leftTextDiv blueDivColor" >
+                            <h4 class="my-auto" style="font-weight: bold; text-align:center;line-height:45px">看板關鍵字搜尋</h4>
+                        </div>
+
+                        <div class="show" >
+                            <!-- 自己輸入關鍵字 -->
+                            <div class="input-group pb-1 pt-1">
+                                <input id="self-search" type="text" class="form-control" placeholder="輸入關鍵字"
+                                    aria-label="specific">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- 常見標籤 -->
+                            <h4 class="leftTextDiv blueDivColor text-center my-auto" style="font-weight: bold;">常見標籤
+                            </h4>
+                            <div class="list-group ">
+                                <%for(var key in keywords){%>
+                                <button data-toggle="list" role="tab"
+                                    class="leftTextDiv list-group-item list-group-item-action  clearfix list-group-item-heading"
+                                    id='keywords<%=keywords[key]%>' style="cursor: pointer;">
+                                    <h4 class="my-auto text-center" style="font-weight: bold;"> <%=keywords[key]%></h4>
+                                </button>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- 左邊的欄位 -->
-            <div class="col-md-3">
+            <div class="col-md-3 d-none d-md-block">
                 <div class="d-flex flex-column">
                     <!-- 全部顯示 -->
                     <div class="p-1">
@@ -96,7 +146,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <!-- 列表區域 -->
@@ -110,7 +159,8 @@
                                     class="boardList" title="<%=boards[i]['title']%>">
                                     <div class=" container">
                                         <div class="row w-100">
-                                            <h4 class="col-md-9 col-sm-5 my-auto p-2" style="font-weight: bold;text-align:center">
+                                            <h4 class="col-md-9 col-sm-5 my-auto p-2"
+                                                style="font-weight: bold;text-align:center">
                                                 <%=boards[i]['tab']%>:
                                                 <%=boards[i]['title']%>
                                             </h4>
